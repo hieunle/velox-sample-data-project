@@ -1,0 +1,31 @@
+{
+  "format": "velox-databricks/1",
+  "consent": {
+    "model": "desktop",
+    "endpoint": null,
+    "agreedBy": "Hieu Le (KMS), synthetic packaging dataset",
+    "at": "2026-10-27",
+    "testDataOnly": true
+  },
+  "environments": {
+    "dev": {
+      "host": null,
+      "app": null,
+      "warehouse": null
+    },
+    "staging": {
+      "host": null,
+      "app": null,
+      "warehouse": null
+    },
+    "prod": {
+      "host": null,
+      "app": null,
+      "warehouse": null
+    }
+  },
+  "sources": {},
+  "targetCatalog": null,
+  "layout": null,
+  "migrationId": null
+}
