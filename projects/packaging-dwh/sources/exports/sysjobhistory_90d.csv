@@ -1,0 +1,10 @@
+job_name,step,last_run,duration_s,outcome
+DWH_Nightly,1 land SAP files,2026-09-29 01:00,612,succeeded
+DWH_Nightly,2 mfg.sp_Load_ProductionRun,2026-09-29 01:30,1480,succeeded
+DWH_Nightly,3 LIMS hourly catch-up,2026-09-29 01:55,95,succeeded
+DWH_Nightly,4 sales.sp_Build_Invoice,2026-09-29 02:00,740,succeeded
+DWH_Inventory,1 supply.sp_Snapshot_Inventory,2026-09-28 23:55,2390,succeeded
+DWH_Inventory,1 supply.sp_Snapshot_Inventory,2026-08-31 23:55,4110,failed: timeout (DWH-401)
+PBI_Refresh,Plant performance,2026-09-29 06:00,310,succeeded
+PBI_Refresh,Sales cockpit,2026-09-29 06:30,520,succeeded
+SSRS,rpt_open_receivables,2026-09-29 07:00,41,succeeded
