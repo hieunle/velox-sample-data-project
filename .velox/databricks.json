@@ -9,8 +9,8 @@
   },
   "environments": {
     "dev": {
-      "host": null,
-      "app": null,
+      "host": "https://adb-7405616107872874.14.azuredatabricks.net",
+      "app": "mcp-velox-dev",
       "warehouse": null
     },
     "staging": {
@@ -24,8 +24,10 @@
       "warehouse": null
     }
   },
-  "sources": {},
-  "targetCatalog": null,
-  "layout": null,
+  "sources": {
+    "SYS-1": "packdwh_src"
+  },
+  "targetCatalog": "velox_dev",
+  "layout": "mirror",
   "migrationId": null
 }
