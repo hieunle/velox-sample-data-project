@@ -1,0 +1,248 @@
+resources:
+  jobs:
+    migration:
+      name: velox-migration-pln-83e10b1d6f
+      tasks:
+        - task_key: step_01_schema_mfg
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/01_schema-mfg.sql
+        - task_key: step_02_copy_BillOfMaterial
+          depends_on:
+            - task_key: step_01_schema_mfg
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/02_copy-billofmaterial.sql
+        - task_key: step_03_not_null_BillOfMaterial
+          depends_on:
+            - task_key: step_02_copy_BillOfMaterial
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/03_not-null-billofmaterial.sql
+        - task_key: step_04_primary_key_BillOfMaterial
+          depends_on:
+            - task_key: step_03_not_null_BillOfMaterial
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/04_primary-key-billofmaterial.sql
+        - task_key: step_05_copy_EnergyReading
+          depends_on:
+            - task_key: step_04_primary_key_BillOfMaterial
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/05_copy-energyreading.sql
+        - task_key: step_06_not_null_EnergyReading
+          depends_on:
+            - task_key: step_05_copy_EnergyReading
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/06_not-null-energyreading.sql
+        - task_key: step_07_primary_key_EnergyReading
+          depends_on:
+            - task_key: step_06_not_null_EnergyReading
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/07_primary-key-energyreading.sql
+        - task_key: step_08_copy_Machine
+          depends_on:
+            - task_key: step_07_primary_key_EnergyReading
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/08_copy-machine.sql
+        - task_key: step_09_not_null_Machine
+          depends_on:
+            - task_key: step_08_copy_Machine
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/09_not-null-machine.sql
+        - task_key: step_10_primary_key_Machine
+          depends_on:
+            - task_key: step_09_not_null_Machine
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/10_primary-key-machine.sql
+        - task_key: step_11_copy_MachineEvent
+          depends_on:
+            - task_key: step_10_primary_key_Machine
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/11_copy-machineevent.sql
+        - task_key: step_12_not_null_MachineEvent
+          depends_on:
+            - task_key: step_11_copy_MachineEvent
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/12_not-null-machineevent.sql
+        - task_key: step_13_primary_key_MachineEvent
+          depends_on:
+            - task_key: step_12_not_null_MachineEvent
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/13_primary-key-machineevent.sql
+        - task_key: step_14_copy_MaintenanceWorkOrder
+          depends_on:
+            - task_key: step_13_primary_key_MachineEvent
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/14_copy-maintenanceworkorder.sql
+        - task_key: step_15_not_null_MaintenanceWorkOrder
+          depends_on:
+            - task_key: step_14_copy_MaintenanceWorkOrder
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/15_not-null-maintenanceworkorder.sql
+        - task_key: step_16_primary_key_MaintenanceWorkOrder
+          depends_on:
+            - task_key: step_15_not_null_MaintenanceWorkOrder
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/16_primary-key-maintenanceworkorder.sql
+        - task_key: step_17_copy_Material
+          depends_on:
+            - task_key: step_16_primary_key_MaintenanceWorkOrder
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/17_copy-material.sql
+        - task_key: step_18_not_null_Material
+          depends_on:
+            - task_key: step_17_copy_Material
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/18_not-null-material.sql
+        - task_key: step_19_primary_key_Material
+          depends_on:
+            - task_key: step_18_not_null_Material
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/19_primary-key-material.sql
+        - task_key: step_20_copy_PackagingProduct
+          depends_on:
+            - task_key: step_19_primary_key_Material
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/20_copy-packagingproduct.sql
+        - task_key: step_21_not_null_PackagingProduct
+          depends_on:
+            - task_key: step_20_copy_PackagingProduct
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/21_not-null-packagingproduct.sql
+        - task_key: step_22_copy_Plant
+          depends_on:
+            - task_key: step_21_not_null_PackagingProduct
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/22_copy-plant.sql
+        - task_key: step_23_not_null_Plant
+          depends_on:
+            - task_key: step_22_copy_Plant
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/23_not-null-plant.sql
+        - task_key: step_24_primary_key_Plant
+          depends_on:
+            - task_key: step_23_not_null_Plant
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/24_primary-key-plant.sql
+        - task_key: step_25_copy_ProductionLine
+          depends_on:
+            - task_key: step_24_primary_key_Plant
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/25_copy-productionline.sql
+        - task_key: step_26_not_null_ProductionLine
+          depends_on:
+            - task_key: step_25_copy_ProductionLine
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/26_not-null-productionline.sql
+        - task_key: step_27_primary_key_ProductionLine
+          depends_on:
+            - task_key: step_26_not_null_ProductionLine
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/27_primary-key-productionline.sql
+        - task_key: step_28_copy_ProductionRun
+          depends_on:
+            - task_key: step_27_primary_key_ProductionLine
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/28_copy-productionrun.sql
+        - task_key: step_29_not_null_ProductionRun
+          depends_on:
+            - task_key: step_28_copy_ProductionRun
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/29_not-null-productionrun.sql
+        - task_key: step_30_primary_key_ProductionRun
+          depends_on:
+            - task_key: step_29_not_null_ProductionRun
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/30_primary-key-productionrun.sql
+        - task_key: step_31_readers
+          depends_on:
+            - task_key: step_30_primary_key_ProductionRun
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../sql/31_readers.sql
+        - task_key: tests_schema
+          depends_on:
+            - task_key: step_31_readers
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../tests/schema.sql
+        - task_key: tests_data_quality
+          depends_on:
+            - task_key: step_31_readers
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../tests/data_quality.sql
+        - task_key: tests_business_rules
+          depends_on:
+            - task_key: step_31_readers
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../tests/business_rules.sql
+        - task_key: tests_regression
+          depends_on:
+            - task_key: step_31_readers
+          sql_task:
+            warehouse_id: ${var.warehouse_id}
+            file:
+              path: ../tests/regression.sql
