@@ -1,0 +1,260 @@
+{
+ "skill": "discovery-intake@0.9.0 + legacy-etl-archaeology@0.9.0 + requirements-extraction@0.9.0 (databricks-discovery 0.9.0)",
+ "model": "claude-opus-5-5",
+ "executions": [],
+ "sources_requested_not_available": [
+  "src-prod-access",
+  "src-sequences",
+  "src-ssis",
+  "src-agent-jobs",
+  "src-jobhist-90d",
+  "src-usage-90d",
+  "src-report-server",
+  "src-prod-rowcounts",
+  "src-missing-loaders",
+  "src-linked-server-mes"
+ ],
+ "notes": "Approach without a workspace (person's choice). Knowledge Hub asked 2026-10-27: none on record. Docs read during intake before code; rules written from code text then diffed. No query run against the test copy or production; nothing reproduced. Credentials: none read or stored; dwh_nightly.py:34 reads a password file whose content was not opened.",
+ "run_id": "2026-10-27_run-01-member",
+ "project": "packaging-dwh",
+ "sources_read": [
+  {
+   "source_id": "src-readme",
+   "path": "README.md",
+   "sha256": "33cbccdb658c9eb3d88dcab28b9d8d98447c1d576a45cdf33b3c39e87baf3236",
+   "bytes": 1248
+  },
+  {
+   "source_id": "src-cfg",
+   "path": "config/connections.ini",
+   "sha256": "4b52d5a0d653c68bec98ca28f03b2f22740280284c989f84a4dc66f574ccca5c",
+   "bytes": 720
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.BillOfMaterial.sql",
+   "sha256": "007493da900f433c1829c9b838509cc12da4196de03f2613b3585627ddfefde1",
+   "bytes": 504
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.EnergyReading.sql",
+   "sha256": "9e571fdadcdebffffcc8fbcafc0ae01c01553ab95a5dbabf3de3e9cd24a5670b",
+   "bytes": 679
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.Machine.sql",
+   "sha256": "9dcfeff80aaa8a8cac1e9cc12e10ff704764ef63c223e1aaade211ee8b106e7b",
+   "bytes": 713
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.MachineEvent.sql",
+   "sha256": "46682ac02db43215dfa0df0faa93763c0100016f3399a4cff1c3a0379d165c1f",
+   "bytes": 773
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.MaintenanceWorkOrder.sql",
+   "sha256": "24b297df849fb87fdc279d368db0578a8f48f92b489e94bb8d79406b2a04fccc",
+   "bytes": 889
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.Material.sql",
+   "sha256": "f1b2782327a67067746b5f5fbbebd9e0faba35b94041341ac8aa3459f93e7ad0",
+   "bytes": 598
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.PackagingProduct.sql",
+   "sha256": "8a66926e026de37bc74bd3cc13676c3531df1bb33af70441204b6228c6452bb2",
+   "bytes": 979
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.Plant.sql",
+   "sha256": "0bfdf33d2293e872ad56293f73e1734e3f5fe3448c8846ac6df100224bff81eb",
+   "bytes": 628
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.ProductionLine.sql",
+   "sha256": "37a6cd2c61fdfb5c86e4cbd08baf1994deea801271cfee59dfc6494d4dcf719a",
+   "bytes": 552
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/mfg.ProductionRun.sql",
+   "sha256": "80439d90e402998647a31019f5eec83460e26c19e655eb906901c56ecc5d96b5",
+   "bytes": 1481
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/quality.Complaint.sql",
+   "sha256": "0c3084dd24dec1d33991577ec73fe9607dd83404ba119a8b41591d9d66d4f72e",
+   "bytes": 706
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/quality.Inspection.sql",
+   "sha256": "5063e9ecaf0788c62bf9e8ae14acd0c11d15f72b126cfd5279344a5a5ac7a176",
+   "bytes": 824
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/quality.LabTestResult.sql",
+   "sha256": "16c50ca1c8523999b5189db01be61c4cd15c20c92f96f6900461ef495382290c",
+   "bytes": 864
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/sales.Customer.sql",
+   "sha256": "5ebf702b158456fd91e29dfe9a51562a21e1aa606e38d5e074cd3ebcad930ef7",
+   "bytes": 1058
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/sales.CustomerSite.sql",
+   "sha256": "3e0fb5433f8565d3a75fbad2345b0874eb409c57847e43b69c222e14d342f914",
+   "bytes": 642
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/sales.Invoice.sql",
+   "sha256": "a69ba42bc00a20db348358333499f45b61fb5d01e8fde640600a11442856e926",
+   "bytes": 830
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/sales.OrderLine.sql",
+   "sha256": "639b91f09051f742f8278a9a09c62d2a597d5a381f3914a79e81b2f2c919fb3e",
+   "bytes": 1041
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/sales.PriceList.sql",
+   "sha256": "55581b9dd8f59da9413ec1249c542249a99a7638460409cca4d1b4c83a0049c2",
+   "bytes": 547
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/sales.SalesOrder.sql",
+   "sha256": "4fcabcca6c0cc828cb33500caddaf00c20b0c871d599b3036cfeabfb23ba1e99",
+   "bytes": 981
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/supply.InventorySnapshot.sql",
+   "sha256": "8ec854a3da70a871ca6ff40a2b95b53a85b83d87956e0a8e96f125de966a1cfd",
+   "bytes": 663
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/supply.PurchaseOrder.sql",
+   "sha256": "0bb47cb3d598d14243938708d33222ba9ffd1af1c1fd1610d0b9184b96f873ee",
+   "bytes": 856
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/supply.Shipment.sql",
+   "sha256": "9473ac5df46cb786d6d49b961d4ad242654709122ebfb9312245dfb808b77a6b",
+   "bytes": 1024
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/supply.Supplier.sql",
+   "sha256": "814ccc28ab15cad51d7753b88f2873ab7309b674f25b3219287920dd6f12685b",
+   "bytes": 759
+  },
+  {
+   "source_id": "src-ddl",
+   "path": "sources/code/ddl/supply.Warehouse.sql",
+   "sha256": "376739a93f4b1bdde48fc8129832e4f47a163b9aff34a6c0c8cd6b291c98e832",
+   "bytes": 523
+  },
+  {
+   "source_id": "src-proc-01",
+   "path": "sources/code/procs/mfg.sp_Load_ProductionRun.sql",
+   "sha256": "1ec641b3f2e409437914ef804f66a1ac90a4b344b05e77ae3759172488987dff",
+   "bytes": 1923
+  },
+  {
+   "source_id": "src-proc-02",
+   "path": "sources/code/procs/sales.sp_Build_Invoice.sql",
+   "sha256": "1761b3faf9967ccbcb2a137ca765e8bea3c29a9f200a9cbb313b21136cf98dbd",
+   "bytes": 1947
+  },
+  {
+   "source_id": "src-proc-03",
+   "path": "sources/code/procs/supply.sp_Snapshot_Inventory.sql",
+   "sha256": "f75aea5ccf9cad44f593e92bf27dbc0ec2fcc879bb7fef83e6ae3d7eb543ec06",
+   "bytes": 1647
+  },
+  {
+   "source_id": "src-proc-04",
+   "path": "sources/code/procs/quality.sp_Close_Complaint.sql",
+   "sha256": "50dfa885a582f2884629f584f8422d417274cdb56eafd18e2b75343cdc2c6644",
+   "bytes": 903
+  },
+  {
+   "source_id": "src-view-01",
+   "path": "sources/code/views/mfg.vw_DailyOee.sql",
+   "sha256": "cd36e0eedb37dc73daf6c0eb3eedc1e7e40c3b21a2b6a9847d4b42e727fd9cfc",
+   "bytes": 781
+  },
+  {
+   "source_id": "src-view-02",
+   "path": "sources/code/views/sales.vw_OpenReceivables.sql",
+   "sha256": "8c85374eb34c6125ca048abb009b20eef4f5eb3b676b3e93c2c74714f5cbdaf4",
+   "bytes": 899
+  },
+  {
+   "source_id": "src-job-01",
+   "path": "sources/code/jobs/dwh_nightly.py",
+   "sha256": "59b63d97637cd51e7af5ef19819cff8b13a5a446f5a68eb0c2fcebc8f38efccd",
+   "bytes": 1798
+  },
+  {
+   "source_id": "src-spec-01",
+   "path": "sources/docs/spec_2019_dwh_functional.md",
+   "sha256": "d32f2c3585f50410a251b2daf54233abaade6916d8de3197d2d70ae75d124345",
+   "bytes": 3456
+  },
+  {
+   "source_id": "src-int-01",
+   "path": "sources/docs/interview_dba_2026-09-22.md",
+   "sha256": "8f6a768f90d29257df1fc625c97a634026da78c1db3a9511982b1408d6061420",
+   "bytes": 1869
+  },
+  {
+   "source_id": "src-kick-01",
+   "path": "sources/docs/kickoff_deck_notes.md",
+   "sha256": "6950e499ce134845f0e37fd2aeaa9fe067a5cedf84911dd98c4755430d66ce62",
+   "bytes": 902
+  },
+  {
+   "source_id": "src-exp-rowcounts",
+   "path": "sources/exports/table_rowcounts.csv",
+   "sha256": "1a8f9333cead828efb9b59499f54e7ea12d4a3d3683f62ff7bce1827cdc9fa56",
+   "bytes": 1248
+  },
+  {
+   "source_id": "src-exp-jobhist",
+   "path": "sources/exports/sysjobhistory_90d.csv",
+   "sha256": "f8dac52b0986026e43c2eca25cf9d9852b7771fbe7be8336f3e8fa1183059325",
+   "bytes": 651
+  }
+ ],
+ "external_access": [],
+ "counts": {
+  "business_rules": 28,
+  "dependency_edges": 42,
+  "findings": 26,
+  "inventory": 48,
+  "open_questions": 17,
+  "requirements": 36,
+  "source_systems": 11
+ }
+}

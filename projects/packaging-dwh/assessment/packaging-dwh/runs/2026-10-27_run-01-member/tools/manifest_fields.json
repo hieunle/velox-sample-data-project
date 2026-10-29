@@ -1,0 +1,24 @@
+{
+  "skill": "discovery-intake@0.9.0 + legacy-etl-archaeology@0.9.0 + requirements-extraction@0.9.0 (databricks-discovery 0.9.0)",
+  "model": "claude-opus-5-5",
+  "sources": {
+    "src-readme": ["README.md"],
+    "src-cfg": ["config/connections.ini"],
+    "src-ddl": ["sources/code/ddl"],
+    "src-proc-01": ["sources/code/procs/mfg.sp_Load_ProductionRun.sql"],
+    "src-proc-02": ["sources/code/procs/sales.sp_Build_Invoice.sql"],
+    "src-proc-03": ["sources/code/procs/supply.sp_Snapshot_Inventory.sql"],
+    "src-proc-04": ["sources/code/procs/quality.sp_Close_Complaint.sql"],
+    "src-view-01": ["sources/code/views/mfg.vw_DailyOee.sql"],
+    "src-view-02": ["sources/code/views/sales.vw_OpenReceivables.sql"],
+    "src-job-01": ["sources/code/jobs/dwh_nightly.py"],
+    "src-spec-01": ["sources/docs/spec_2019_dwh_functional.md"],
+    "src-int-01": ["sources/docs/interview_dba_2026-09-22.md"],
+    "src-kick-01": ["sources/docs/kickoff_deck_notes.md"],
+    "src-exp-rowcounts": ["sources/exports/table_rowcounts.csv"],
+    "src-exp-jobhist": ["sources/exports/sysjobhistory_90d.csv"]
+  },
+  "executions": [],
+  "sources_requested_not_available": ["src-prod-access", "src-sequences", "src-ssis", "src-agent-jobs", "src-jobhist-90d", "src-usage-90d", "src-report-server", "src-prod-rowcounts", "src-missing-loaders", "src-linked-server-mes"],
+  "notes": "Approach without a workspace (person's choice). Knowledge Hub asked 2026-10-27: none on record. Docs read during intake before code; rules written from code text then diffed. No query run against the test copy or production; nothing reproduced. Credentials: none read or stored; dwh_nightly.py:34 reads a password file whose content was not opened."
+}

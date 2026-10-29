@@ -1,0 +1,48 @@
+{"object_id":"obj-001","kind":"table","name":"mfg.BillOfMaterial","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-002","kind":"table","name":"mfg.EnergyReading","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-003","kind":"table","name":"mfg.Machine","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-004","kind":"table","name":"mfg.MachineEvent","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-005","kind":"table","name":"mfg.MaintenanceWorkOrder","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-006","kind":"table","name":"mfg.Material","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-007","kind":"table","name":"mfg.PackagingProduct","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-008","kind":"table","name":"mfg.Plant","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-009","kind":"table","name":"mfg.ProductionLine","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-010","kind":"table","name":"mfg.ProductionRun","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-044","kind":"view","name":"mfg.vw_DailyOee","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-011","kind":"table","name":"quality.Complaint","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-012","kind":"table","name":"quality.Inspection","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-013","kind":"table","name":"quality.LabTestResult","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-014","kind":"table","name":"sales.Customer","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-015","kind":"table","name":"sales.CustomerSite","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-016","kind":"table","name":"sales.Invoice","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-017","kind":"table","name":"sales.OrderLine","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-018","kind":"table","name":"sales.PriceList","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-019","kind":"table","name":"sales.SalesOrder","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-031","kind":"sequence","name":"sales.seq_Invoice","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-045","kind":"view","name":"sales.vw_OpenReceivables","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-020","kind":"table","name":"supply.InventorySnapshot","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-021","kind":"table","name":"supply.PurchaseOrder","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-032","kind":"sequence","name":"supply.seq_Snapshot","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-022","kind":"table","name":"supply.Shipment","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-023","kind":"table","name":"supply.Supplier","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-024","kind":"table","name":"supply.Warehouse","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-025","kind":"table","name":"wms.stock_extract","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.734Z"}
+{"object_id":"obj-040","kind":"procedure","name":"mfg.sp_Load_ProductionRun","disposition":"convert","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.766Z"}
+{"object_id":"obj-043","kind":"procedure","name":"quality.sp_Close_Complaint","disposition":"convert","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.766Z"}
+{"object_id":"obj-041","kind":"procedure","name":"sales.sp_Build_Invoice","disposition":"convert","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.766Z"}
+{"object_id":"obj-048","kind":"job","name":"SQL Agent DWH_Inventory","disposition":"convert","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.766Z"}
+{"object_id":"obj-047","kind":"job","name":"SQL Agent DWH_Nightly","disposition":"convert","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.766Z"}
+{"object_id":"obj-042","kind":"procedure","name":"supply.sp_Snapshot_Inventory","disposition":"convert","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.766Z"}
+{"object_id":"obj-055","kind":"export","name":"Monthly sustainability extract","disposition":"repoint","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.851Z"}
+{"object_id":"obj-046","kind":"etl_job","name":"jobs/dwh_nightly.py","disposition":"convert","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:31.918Z"}
+{"object_id":"obj-026","kind":"table","name":"MES_EU.mes.dbo.production_run","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.030Z"}
+{"object_id":"obj-029","kind":"file_dataset","name":"sap_ekko_*.csv","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.095Z"}
+{"object_id":"obj-030","kind":"file_dataset","name":"sap_likp_*.csv","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.095Z"}
+{"object_id":"obj-028","kind":"file_dataset","name":"sap_vbak_*.csv","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.095Z"}
+{"object_id":"obj-027","kind":"file_dataset","name":"sap_vbap_*.csv","disposition":"migrate","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.095Z"}
+{"object_id":"obj-054","kind":"application","name":"QMS web app","disposition":"repoint","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.195Z"}
+{"object_id":"obj-049","kind":"job","name":"DWH_Nightly step 3 LIMS hourly catch-up","disposition":"convert","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.270Z"}
+{"object_id":"obj-050","kind":"dashboard","name":"Power BI Plant performance","disposition":"repoint","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.336Z"}
+{"object_id":"obj-051","kind":"dashboard","name":"Power BI Sales cockpit","disposition":"repoint","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.336Z"}
+{"object_id":"obj-053","kind":"report","name":"SSRS rpt_complaints_weekly","disposition":"repoint","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.399Z"}
+{"object_id":"obj-052","kind":"report","name":"SSRS rpt_open_receivables","disposition":"repoint","status":"reviewed","reviewed_by":"hieunle@kms-technology.com","reviewed_at":"2026-10-27T10:32:32.399Z"}

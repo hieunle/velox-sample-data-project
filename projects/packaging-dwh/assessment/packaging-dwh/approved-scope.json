@@ -1,0 +1,724 @@
+{
+  "format": "velox-approved-scope/4",
+  "project": "projects/packaging-dwh/assessment/packaging-dwh",
+  "systems": [
+    {
+      "builtFrom": {
+        "business_rules": "1cc066c5cb66f2c5bee4e54412eb20e1c9b02e929d722f16805df5869b4d6b6f",
+        "dependency_edges": "782c4b5e841e4e991c0518088d9d436edacc067840dd8a545fef58b26bb835f3",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "a60932fec241fbbeccf952af4db79a5bcda6a4e9dad3de43848f3e5c4e49dfc2",
+        "rationalization": "fd849eb643aff13332db375da380feb70fdd7824a80dba47f28bf3c95909cdb8"
+      },
+      "consumers": [],
+      "foreignCatalog": null,
+      "hash": "sha256:d65eec0ca25912605909884b74ddb41c55bd2435c99c7e94a5b963a72dad41eb",
+      "key": "SYS-1",
+      "name": "Packaging DWH (production)",
+      "version": 1,
+      "waves": [
+        {
+          "id": "wave-1",
+          "objects": [
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-001",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-002",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-003",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-004",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-005",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-006",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-007",
+              "rules": [
+                {
+                  "key": "BR-027",
+                  "plain": "Each SKU should appear once in the product table; nothing enforces it, and the production load joins on it",
+                  "status": "DOC-ONLY"
+                }
+              ],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-008",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-009",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-010",
+              "rules": [
+                {
+                  "key": "BR-002",
+                  "plain": "The warehouse stores units produced as good units plus rejected units, not as the MES good count",
+                  "status": "CODE-ONLY"
+                },
+                {
+                  "key": "BR-003",
+                  "plain": "After loading a day, the load stops with an error if any run has more rejected than produced units; the loaded rows are not rolled back",
+                  "status": "VERIFIED"
+                },
+                {
+                  "key": "BR-005",
+                  "plain": "A MES run whose machine or product SKU is not yet in the warehouse is silently left out of the day's load",
+                  "status": "CODE-ONLY"
+                },
+                {
+                  "key": "BR-006",
+                  "plain": "Re-running the production load for a day deletes that day and loads it again",
+                  "status": "CODE-ONLY"
+                }
+              ],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-011",
+              "rules": [
+                {
+                  "key": "BR-023",
+                  "plain": "A recall complaint can only be closed by the recall board, never through the QMS close action",
+                  "status": "VERIFIED"
+                },
+                {
+                  "key": "BR-025",
+                  "plain": "Closing a complaint in any other status does nothing and reports no error; an existing credit-note amount is kept when none is passed",
+                  "status": "CODE-ONLY"
+                }
+              ],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-012",
+              "rules": [
+                {
+                  "key": "BR-028",
+                  "plain": "B1234a and B1234A are two different batches in inspections; everywhere else text ignores case",
+                  "status": "VERIFIED"
+                }
+              ],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-013",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-014",
+              "rules": [
+                {
+                  "key": "BR-026",
+                  "plain": "Each customer contact email is unique regardless of letter case; no constraint in the warehouse enforces it",
+                  "status": "DOC-ONLY"
+                }
+              ],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-015",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-016",
+              "rules": [
+                {
+                  "key": "BR-009",
+                  "plain": "An invoice's net amount is the sum of its order lines' amounts in the order's currency, one invoice per order",
+                  "status": "VERIFIED"
+                },
+                {
+                  "key": "BR-010",
+                  "plain": "Orders are invoiced only when their status is Shipped or Invoiced; any other status gets no invoice",
+                  "status": "CODE-ONLY"
+                },
+                {
+                  "key": "BR-011",
+                  "plain": "Gross amount is always net plus tax, on insert and on every rebuild",
+                  "status": "VERIFIED"
+                },
+                {
+                  "key": "BR-013",
+                  "plain": "An invoice falls due its customer's payment-terms days after it is issued; a customer without terms gets no due date",
+                  "status": "VERIFIED"
+                },
+                {
+                  "key": "BR-017",
+                  "plain": "The invoice number is INV plus the invoice key padded to eight digits",
+                  "status": "CODE-ONLY"
+                }
+              ],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-017",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-018",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-019",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-020",
+              "rules": [
+                {
+                  "key": "BR-018",
+                  "plain": "Stock value in euro is units on hand multiplied by the WMS unit cost",
+                  "status": "VERIFIED"
+                },
+                {
+                  "key": "BR-020",
+                  "plain": "Stock from a warehouse code that the warehouse table does not know is left out of the snapshot without notice",
+                  "status": "CODE-ONLY"
+                }
+              ],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-021",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-022",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-023",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-024",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-025",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-031",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-032",
+              "rules": [],
+              "source": null
+            }
+          ]
+        },
+        {
+          "id": "wave-2",
+          "objects": [
+            {
+              "dependsOn": [
+                "obj-008",
+                "obj-009",
+                "obj-010"
+              ],
+              "disposition": "migrate",
+              "key": "obj-044",
+              "rules": [
+                {
+                  "key": "BR-007",
+                  "plain": "A line's daily OEE weights each run by its minutes, never a plain average; a day with no minutes has no OEE",
+                  "status": "VERIFIED"
+                },
+                {
+                  "key": "BR-008",
+                  "plain": "Energy intensity is run energy divided by units produced (rejects included), per thousand units, from the run table not the energy meters",
+                  "status": "CODE-ONLY"
+                }
+              ],
+              "source": null
+            },
+            {
+              "dependsOn": [
+                "obj-014",
+                "obj-016"
+              ],
+              "disposition": "migrate",
+              "key": "obj-045",
+              "rules": [
+                {
+                  "key": "BR-021",
+                  "plain": "An unpaid invoice past its due date is overdue; dunning level 1 after more than 7 days, 2 after more than 30, 3 after more than 60",
+                  "status": "VERIFIED"
+                },
+                {
+                  "key": "BR-022",
+                  "plain": "The dunning list shows only unpaid, non-credit-note invoices already past due; invoices with no due date or no credit-note flag never appear",
+                  "status": "CODE-ONLY"
+                }
+              ],
+              "source": null
+            }
+          ]
+        }
+      ],
+      "workloads": [
+        {
+          "dependsOn": [
+            "obj-003",
+            "obj-007",
+            "obj-010",
+            "obj-026"
+          ],
+          "disposition": "convert",
+          "key": "obj-040",
+          "kind": "procedure",
+          "name": "mfg.sp_Load_ProductionRun"
+        },
+        {
+          "dependsOn": [
+            "obj-014",
+            "obj-016",
+            "obj-017",
+            "obj-019",
+            "obj-031"
+          ],
+          "disposition": "convert",
+          "key": "obj-041",
+          "kind": "procedure",
+          "name": "sales.sp_Build_Invoice"
+        },
+        {
+          "dependsOn": [
+            "obj-017",
+            "obj-020",
+            "obj-024",
+            "obj-025",
+            "obj-032"
+          ],
+          "disposition": "convert",
+          "key": "obj-042",
+          "kind": "procedure",
+          "name": "supply.sp_Snapshot_Inventory"
+        },
+        {
+          "dependsOn": [
+            "obj-011"
+          ],
+          "disposition": "convert",
+          "key": "obj-043",
+          "kind": "procedure",
+          "name": "quality.sp_Close_Complaint"
+        },
+        {
+          "dependsOn": [
+            "obj-040",
+            "obj-041",
+            "obj-049"
+          ],
+          "disposition": "convert",
+          "key": "obj-047",
+          "kind": "job",
+          "name": "SQL Agent DWH_Nightly"
+        },
+        {
+          "dependsOn": [
+            "obj-042"
+          ],
+          "disposition": "convert",
+          "key": "obj-048",
+          "kind": "job",
+          "name": "SQL Agent DWH_Inventory"
+        }
+      ]
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "94ddfe015d963cbc1b4cddecf9868a8b15cdcbc2ad16bd57ae4b2d4ad02da84a",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "2f7ec151f1f4bf5c8d4a850aa0675b4ab1cdf6b21d8dfbcd179b0f2ca0bd6d35",
+        "rationalization": "e5bf41cb6507ec78124aa175f3e9eb63009045f6fb7aa68c53c62d523d8690a9"
+      },
+      "consumers": [
+        {
+          "dependsOn": [
+            "obj-002",
+            "obj-022"
+          ],
+          "disposition": "repoint",
+          "key": "obj-055",
+          "kind": "export",
+          "name": "Monthly sustainability extract"
+        }
+      ],
+      "foreignCatalog": null,
+      "hash": "sha256:72cd34f4844e9c48e1f5443a6124d981b7f7dc84f74b459da6aeef0aa8910541",
+      "key": "SYS-10",
+      "name": "Group sustainability platform",
+      "version": 1,
+      "waves": [],
+      "workloads": []
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "7cbc2915ad16450e9d515dd7b5ad0116c25e8d24bf0b00d16bab2fd5c969b5c1",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "b73438844ea7ee0c19fb4e287d2f139b0cd7d1a29264a539b65b608944d625e0",
+        "rationalization": "64c7cbcb17de69c22ca29877e18a12499f30193645e59f0b0a80d63ad1d8bd9c"
+      },
+      "consumers": [],
+      "foreignCatalog": null,
+      "hash": "sha256:b9ff701318fc2481a90a32a334bd9b502a1c2d89b58d536ccd9e60c78dfae42c",
+      "key": "SYS-11",
+      "name": "ETL server ETL02",
+      "version": 1,
+      "waves": [],
+      "workloads": [
+        {
+          "dependsOn": [
+            "obj-017",
+            "obj-019",
+            "obj-021",
+            "obj-022",
+            "obj-027",
+            "obj-028",
+            "obj-029",
+            "obj-030",
+            "obj-040",
+            "obj-041",
+            "obj-042"
+          ],
+          "disposition": "convert",
+          "key": "obj-046",
+          "kind": "etl_job",
+          "name": "jobs/dwh_nightly.py"
+        }
+      ]
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "rationalization": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "consumers": [],
+      "foreignCatalog": null,
+      "hash": "sha256:757d8d4e1b2f3ce3a6a61a4fd803669abe7020d9f4f1c19c671998151660a337",
+      "key": "SYS-2",
+      "name": "Packaging DWH test copy",
+      "version": 1,
+      "waves": [],
+      "workloads": []
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "794e1614086e0fdecab12f5e4f37fc1990f64a2a53e5d0d45a5883b132814395",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "91518a7798974bface00809a414ca8d92a1d9c9a6509035498df3672e8b7fb0c",
+        "rationalization": "a65b5acd939d8f20e65c0cc0ec877d5b1c636f314206ff8ed67d1ef9b750cc52"
+      },
+      "consumers": [],
+      "foreignCatalog": null,
+      "hash": "sha256:e804fe79a88ab5ffecc5bf21ae63485d7ba43f1529fbad380ad26979a38b7332",
+      "key": "SYS-3",
+      "name": "MES (manufacturing execution system)",
+      "version": 1,
+      "waves": [
+        {
+          "id": "wave-1",
+          "objects": [
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-026",
+              "rules": [],
+              "source": null
+            }
+          ]
+        }
+      ],
+      "workloads": []
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "4d6005f3d087b527decc6b9f7226ea0eb40a59d78f90a9d2f492d15d06cd4b3a",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "4ce45591590864eae21aa5ab4074955ad7c213c33d61d656b74a661cfa567d63",
+        "rationalization": "a7a1e854ac5d6fc60d4af8e9c4584d3cc1bca7d324826d1518560b09f1cd5891"
+      },
+      "consumers": [],
+      "foreignCatalog": null,
+      "hash": "sha256:01a73c3b5ce0e1bc085be4afebf656d2be74e657347ea198d58ce5c607f0939e",
+      "key": "SYS-4",
+      "name": "SAP ECC export file share",
+      "version": 1,
+      "waves": [
+        {
+          "id": "wave-1",
+          "objects": [
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-027",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-028",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-029",
+              "rules": [],
+              "source": null
+            },
+            {
+              "dependsOn": [],
+              "disposition": "migrate",
+              "key": "obj-030",
+              "rules": [],
+              "source": null
+            }
+          ]
+        }
+      ],
+      "workloads": []
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "rationalization": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+      },
+      "consumers": [],
+      "foreignCatalog": null,
+      "hash": "sha256:e8caf04d367945cb6bd6911ae8edc372e3d4a360f6a8b5d0a01a686bbd606b0c",
+      "key": "SYS-5",
+      "name": "WMS (warehouse management system)",
+      "version": 1,
+      "waves": [],
+      "workloads": []
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "3e2cece2ebce82b8c7bd09e21629f3008cbbfe37c75cb100270572d8bc797191",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "c8bff41478a71c5800f1311bdd3350804e8ef8c8f23b486e55155188db2be2ad",
+        "rationalization": "3b2a6e851cf10824ab87ad67e629bf6eeab4b0d8f0977dd7332bb48e3d50494a"
+      },
+      "consumers": [
+        {
+          "dependsOn": [
+            "obj-011",
+            "obj-043"
+          ],
+          "disposition": "repoint",
+          "key": "obj-054",
+          "kind": "application",
+          "name": "QMS web app"
+        }
+      ],
+      "foreignCatalog": null,
+      "hash": "sha256:fc6e8e2e5e62b0ccd3608d9838fdb4917e44f6ed903d4a28d3c743387bde62d0",
+      "key": "SYS-6",
+      "name": "QMS web app",
+      "version": 1,
+      "waves": [],
+      "workloads": []
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "651615f52e67ea40bee7e35438cf9b3b614ac9723472ea0ca8dc9f1a31fd25be",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "690f869aa5e82693fa52df4976c1955ecb8f72387df76393da7a0e3d5d27c3c2",
+        "rationalization": "c03a8b98bc0b77c28707296d3c99b0feecf55ff3b80297fd3f87384fde8c89ca"
+      },
+      "consumers": [],
+      "foreignCatalog": null,
+      "hash": "sha256:4e87d44ca589f470e48df3d8de450115b1d9040772387b0c8e9b7479898c6ec1",
+      "key": "SYS-7",
+      "name": "LIMS (laboratory system)",
+      "version": 1,
+      "waves": [],
+      "workloads": [
+        {
+          "dependsOn": [
+            "obj-013"
+          ],
+          "disposition": "convert",
+          "key": "obj-049",
+          "kind": "job",
+          "name": "DWH_Nightly step 3 LIMS hourly catch-up"
+        }
+      ]
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "c3eb8a6d4c1b7fe5a5436316f9cd1dfa910f517718b51a41ddd2597d18bf7a65",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "073992e3b3b50baf0868a6c3b96bc6f6046643d2a16ccfb0fe5cf4b8976bf0db",
+        "rationalization": "9ec8e9c9c3ac5c86a82a011d5f292bd38b8a192d46b934dbf1665382aefac556"
+      },
+      "consumers": [
+        {
+          "dependsOn": [
+            "obj-044"
+          ],
+          "disposition": "repoint",
+          "key": "obj-050",
+          "kind": "dashboard",
+          "name": "Power BI Plant performance"
+        },
+        {
+          "dependsOn": [],
+          "disposition": "repoint",
+          "key": "obj-051",
+          "kind": "dashboard",
+          "name": "Power BI Sales cockpit"
+        }
+      ],
+      "foreignCatalog": null,
+      "hash": "sha256:1a80f81e0cc58823e6caff94f4e00ea8036ccbd3ff6f4214ccb4171e28b8b4e6",
+      "key": "SYS-8",
+      "name": "Power BI service",
+      "version": 1,
+      "waves": [],
+      "workloads": []
+    },
+    {
+      "builtFrom": {
+        "business_rules": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "dependency_edges": "2fcdf785ff259192b484ab6979a73e5a9e6e09b68b14b8cf0c49328f81fcc9e1",
+        "findings": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+        "inventory": "957b3399923a279970f9c716e60321c5a6fa67073b0a79c260c4b5a755e48f40",
+        "rationalization": "be9baf47444f801a46b124639c2205f084dd2773249621552ae5c8908902c02f"
+      },
+      "consumers": [
+        {
+          "dependsOn": [
+            "obj-045"
+          ],
+          "disposition": "repoint",
+          "key": "obj-052",
+          "kind": "report",
+          "name": "SSRS rpt_open_receivables"
+        },
+        {
+          "dependsOn": [],
+          "disposition": "repoint",
+          "key": "obj-053",
+          "kind": "report",
+          "name": "SSRS rpt_complaints_weekly"
+        }
+      ],
+      "foreignCatalog": null,
+      "hash": "sha256:dd687e47a87db674a8d0e60617cf6726fcbfd0c3af94c17990445c0ad26d96c2",
+      "key": "SYS-9",
+      "name": "SSRS report server",
+      "version": 1,
+      "waves": [],
+      "workloads": []
+    }
+  ]
+}
