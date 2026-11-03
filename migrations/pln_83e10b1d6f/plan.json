@@ -1,0 +1,1432 @@
+{
+  "plan_id": "pln_83e10b1d6f",
+  "status": "approved",
+  "created_by": "hieunle@kms-technology.com",
+  "approved_by": "hieunle@kms-technology.com",
+  "superseded_by": null,
+  "target_schema": "velox_dev.mfg",
+  "sources": [
+    "packdwh_src.mfg.BillOfMaterial",
+    "packdwh_src.mfg.EnergyReading",
+    "packdwh_src.mfg.Machine",
+    "packdwh_src.mfg.MachineEvent",
+    "packdwh_src.mfg.MaintenanceWorkOrder",
+    "packdwh_src.mfg.Material",
+    "packdwh_src.mfg.PackagingProduct",
+    "packdwh_src.mfg.Plant",
+    "packdwh_src.mfg.ProductionLine",
+    "packdwh_src.mfg.ProductionRun"
+  ],
+  "layout": "mirror",
+  "target_catalog": "velox_dev",
+  "target_schemas": [
+    "velox_dev.mfg"
+  ],
+  "steps": [
+    {
+      "id": "schema:mfg",
+      "title": "Create schema velox_dev.mfg",
+      "statements": [
+        "CREATE SCHEMA IF NOT EXISTS `velox_dev`.`mfg`"
+      ]
+    },
+    {
+      "id": "copy:BillOfMaterial",
+      "title": "Copy packdwh_src.mfg.BillOfMaterial to velox_dev.mfg.billofmaterial",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`billofmaterial` AS SELECT\n  `BomLineKey`,\n  `ProductKey`,\n  `MaterialKey`,\n  `QuantityPerThousand`,\n  `UnitOfMeasure`,\n  `ScrapAllowancePct`,\n  `ValidFrom`,\n  `ValidTo`,\n  `Revision`,\n  `IsAlternative`\nFROM `packdwh_src`.`mfg`.`BillOfMaterial`"
+      ]
+    },
+    {
+      "id": "not-null:BillOfMaterial",
+      "title": "Keep NOT NULL on 3 columns of BillOfMaterial",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`billofmaterial` ALTER COLUMN `BomLineKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`billofmaterial` ALTER COLUMN `ProductKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`billofmaterial` ALTER COLUMN `MaterialKey` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:BillOfMaterial",
+      "title": "Declare the primary key of BillOfMaterial (BomLineKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`billofmaterial` ADD CONSTRAINT `BillOfMaterial_pk` PRIMARY KEY (`BomLineKey`)"
+      ]
+    },
+    {
+      "id": "copy:EnergyReading",
+      "title": "Copy packdwh_src.mfg.EnergyReading to velox_dev.mfg.energyreading",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`energyreading` AS SELECT\n  `ReadingKey`,\n  `PlantKey`,\n  `LineKey`,\n  `ReadingDateKey`,\n  `ReadingHour`,\n  `ReadAt`,\n  `ElectricityKwh`,\n  `GasM3`,\n  `SteamKg`,\n  `CompressedAirM3`,\n  `PeakKw`,\n  `PowerFactor`,\n  `Co2Kg`,\n  `TariffBand`,\n  `IsEstimated`\nFROM `packdwh_src`.`mfg`.`EnergyReading`"
+      ]
+    },
+    {
+      "id": "not-null:EnergyReading",
+      "title": "Keep NOT NULL on 5 columns of EnergyReading",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`energyreading` ALTER COLUMN `ReadingKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`energyreading` ALTER COLUMN `PlantKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`energyreading` ALTER COLUMN `LineKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`energyreading` ALTER COLUMN `ReadingDateKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`energyreading` ALTER COLUMN `ReadingHour` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:EnergyReading",
+      "title": "Declare the primary key of EnergyReading (ReadingKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`energyreading` ADD CONSTRAINT `EnergyReading_pk` PRIMARY KEY (`ReadingKey`)"
+      ]
+    },
+    {
+      "id": "copy:Machine",
+      "title": "Copy packdwh_src.mfg.Machine to velox_dev.mfg.machine",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`machine` AS SELECT\n  `MachineKey`,\n  `LineKey`,\n  `PlantKey`,\n  `MachineType`,\n  `Model`,\n  `SerialNumber`,\n  `Manufacturer`,\n  `InstalledOn`,\n  `WarrantyUntil`,\n  `NominalUnitsPerHour`,\n  `PowerKw`,\n  `WeightKg`,\n  `FirmwareVersion`,\n  `ExternalId`,\n  `IsCritical`,\n  `LastServiceAt`\nFROM `packdwh_src`.`mfg`.`Machine`"
+      ]
+    },
+    {
+      "id": "not-null:Machine",
+      "title": "Keep NOT NULL on 5 columns of Machine",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`machine` ALTER COLUMN `MachineKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`machine` ALTER COLUMN `LineKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`machine` ALTER COLUMN `PlantKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`machine` ALTER COLUMN `SerialNumber` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`machine` ALTER COLUMN `ExternalId` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:Machine",
+      "title": "Declare the primary key of Machine (MachineKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`machine` ADD CONSTRAINT `Machine_pk` PRIMARY KEY (`MachineKey`)"
+      ]
+    },
+    {
+      "id": "copy:MachineEvent",
+      "title": "Copy packdwh_src.mfg.MachineEvent to velox_dev.mfg.machineevent",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`machineevent` AS SELECT\n  `EventKey`,\n  `MachineKey`,\n  `EventDateKey`,\n  CAST(`OccurredAt` AS TIMESTAMP) AS `OccurredAt`,\n  `EventType`,\n  `Severity`,\n  `AlarmCode`,\n  `DurationSeconds`,\n  `AcknowledgedBy`,\n  `AcknowledgedAt`,\n  `RootCause`,\n  `Message`,\n  `CounterValue`,\n  `TempC`,\n  `VibrationMmS`,\n  `IsPlanned`,\n  `ShiftStart`,\n  `SourceSystem`\nFROM `packdwh_src`.`mfg`.`MachineEvent`"
+      ]
+    },
+    {
+      "id": "not-null:MachineEvent",
+      "title": "Keep NOT NULL on 4 columns of MachineEvent",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`machineevent` ALTER COLUMN `EventKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`machineevent` ALTER COLUMN `MachineKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`machineevent` ALTER COLUMN `EventDateKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`machineevent` ALTER COLUMN `EventType` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:MachineEvent",
+      "title": "Declare the primary key of MachineEvent (EventKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`machineevent` ADD CONSTRAINT `MachineEvent_pk` PRIMARY KEY (`EventKey`)"
+      ]
+    },
+    {
+      "id": "copy:MaintenanceWorkOrder",
+      "title": "Copy packdwh_src.mfg.MaintenanceWorkOrder to velox_dev.mfg.maintenanceworkorder",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`maintenanceworkorder` AS SELECT\n  `WorkOrderKey`,\n  `WorkOrderNumber`,\n  `MachineKey`,\n  `WorkType`,\n  `Priority`,\n  `Status`,\n  CAST(`ReportedAt` AS TIMESTAMP) AS `ReportedAt`,\n  `StartedAt`,\n  `CompletedAt`,\n  `PlannedHours`,\n  `ActualHours`,\n  `LabourCostEur`,\n  `PartsCostEur`,\n  `Technician`,\n  `FailureMode`,\n  `SparePartCode`,\n  `DowntimeMinutes`,\n  `SafetyRelated`,\n  `Description`,\n  `ExternalId`\nFROM `packdwh_src`.`mfg`.`MaintenanceWorkOrder`"
+      ]
+    },
+    {
+      "id": "not-null:MaintenanceWorkOrder",
+      "title": "Keep NOT NULL on 3 columns of MaintenanceWorkOrder",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`maintenanceworkorder` ALTER COLUMN `WorkOrderKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`maintenanceworkorder` ALTER COLUMN `WorkOrderNumber` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`maintenanceworkorder` ALTER COLUMN `MachineKey` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:MaintenanceWorkOrder",
+      "title": "Declare the primary key of MaintenanceWorkOrder (WorkOrderKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`maintenanceworkorder` ADD CONSTRAINT `MaintenanceWorkOrder_pk` PRIMARY KEY (`WorkOrderKey`)"
+      ]
+    },
+    {
+      "id": "copy:Material",
+      "title": "Copy packdwh_src.mfg.Material to velox_dev.mfg.material",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`material` AS SELECT\n  `MaterialKey`,\n  `MaterialCode`,\n  `MaterialName`,\n  `Category`,\n  `UnitOfMeasure`,\n  `GramsPerM2`,\n  `RenewableContentPct`,\n  `StandardCostEur`,\n  `FoodContactApproved`,\n  `ApprovedOn`,\n  `ShelfLifeDays`,\n  `HazardClass`\nFROM `packdwh_src`.`mfg`.`Material`"
+      ]
+    },
+    {
+      "id": "not-null:Material",
+      "title": "Keep NOT NULL on 2 columns of Material",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`material` ALTER COLUMN `MaterialKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`material` ALTER COLUMN `MaterialCode` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:Material",
+      "title": "Declare the primary key of Material (MaterialKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`material` ADD CONSTRAINT `Material_pk` PRIMARY KEY (`MaterialKey`)"
+      ]
+    },
+    {
+      "id": "copy:PackagingProduct",
+      "title": "Copy packdwh_src.mfg.PackagingProduct to velox_dev.mfg.packagingproduct",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`packagingproduct` AS SELECT\n  `ProductKey`,\n  `Sku`,\n  `ProductName`,\n  `Material`,\n  `PackageType`,\n  `VolumeMl`,\n  `WeightG`,\n  `HeightMm`,\n  `WidthMm`,\n  `DepthMm`,\n  `RecycledContentPct`,\n  `BarrierLayers`,\n  `PrintColours`,\n  `ListPriceEur`,\n  `MinOrderQty`,\n  `LaunchedOn`,\n  `DiscontinuedOn`,\n  `IsRecyclable`,\n  `Description`,\n  `Gtin`\nFROM `packdwh_src`.`mfg`.`PackagingProduct`"
+      ]
+    },
+    {
+      "id": "not-null:PackagingProduct",
+      "title": "Keep NOT NULL on 4 columns of PackagingProduct",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`packagingproduct` ALTER COLUMN `ProductKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`packagingproduct` ALTER COLUMN `Sku` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`packagingproduct` ALTER COLUMN `ProductName` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`packagingproduct` ALTER COLUMN `Gtin` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "copy:Plant",
+      "title": "Copy packdwh_src.mfg.Plant to velox_dev.mfg.plant",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`plant` AS SELECT\n  `PlantKey`,\n  `PlantCode`,\n  `PlantName`,\n  `Country`,\n  `Region`,\n  `City`,\n  `OpenedOn`,\n  `FloorAreaM2`,\n  `Employees`,\n  `AnnualCapacityMillionPacks`,\n  `IsoCertified`,\n  `TimeZone`,\n  `Latitude`,\n  `Longitude`\nFROM `packdwh_src`.`mfg`.`Plant`"
+      ]
+    },
+    {
+      "id": "not-null:Plant",
+      "title": "Keep NOT NULL on 3 columns of Plant",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`plant` ALTER COLUMN `PlantKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`plant` ALTER COLUMN `PlantCode` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`plant` ALTER COLUMN `PlantName` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:Plant",
+      "title": "Declare the primary key of Plant (PlantKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`plant` ADD CONSTRAINT `Plant_pk` PRIMARY KEY (`PlantKey`)"
+      ]
+    },
+    {
+      "id": "copy:ProductionLine",
+      "title": "Copy packdwh_src.mfg.ProductionLine to velox_dev.mfg.productionline",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`productionline` AS SELECT\n  `LineKey`,\n  `PlantKey`,\n  `LineCode`,\n  `LineType`,\n  `Shifts`,\n  `CommissionedOn`,\n  `NominalPacksPerHour`,\n  `TargetOee`,\n  `Supervisor`,\n  `IsActive`,\n  `LastAuditOn`,\n  `Notes`\nFROM `packdwh_src`.`mfg`.`ProductionLine`"
+      ]
+    },
+    {
+      "id": "not-null:ProductionLine",
+      "title": "Keep NOT NULL on 3 columns of ProductionLine",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`productionline` ALTER COLUMN `LineKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`productionline` ALTER COLUMN `PlantKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`productionline` ALTER COLUMN `LineCode` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:ProductionLine",
+      "title": "Declare the primary key of ProductionLine (LineKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`productionline` ADD CONSTRAINT `ProductionLine_pk` PRIMARY KEY (`LineKey`)"
+      ]
+    },
+    {
+      "id": "copy:ProductionRun",
+      "title": "Copy packdwh_src.mfg.ProductionRun to velox_dev.mfg.productionrun",
+      "statements": [
+        "CREATE OR REPLACE TABLE `velox_dev`.`mfg`.`productionrun` AS SELECT\n  `ProductionRunKey`,\n  `MachineKey`,\n  `LineKey`,\n  `PlantKey`,\n  `ProductKey`,\n  `ProductionDateKey`,\n  `ShiftStart`,\n  CAST(`StartedAt` AS TIMESTAMP) AS `StartedAt`,\n  `DurationMinutes`,\n  `BatchCode`,\n  `UnitsPlanned`,\n  `UnitsProduced`,\n  `UnitsRejected`,\n  `ScrapKg`,\n  `EnergyKwh`,\n  `WaterLitres`,\n  `Oee`,\n  `Availability`,\n  `Performance`,\n  `QualityRate`,\n  `SterilantPpm`,\n  `Zone1TempC`,\n  `Zone2TempC`,\n  `Zone3TempC`,\n  `SealPressureBar`,\n  `WebSpeedMpm`,\n  `GlueGrams`,\n  `InkGrams`,\n  `Stoppages`,\n  `DowntimeMinutes`,\n  `ChangeoverMinutes`,\n  `OperatorCount`,\n  `OperatorId`,\n  `IsTrial`,\n  `ReleasedAt`,\n  `QaComment`\nFROM `packdwh_src`.`mfg`.`ProductionRun`"
+      ]
+    },
+    {
+      "id": "not-null:ProductionRun",
+      "title": "Keep NOT NULL on 7 columns of ProductionRun",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`productionrun` ALTER COLUMN `ProductionRunKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`productionrun` ALTER COLUMN `MachineKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`productionrun` ALTER COLUMN `LineKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`productionrun` ALTER COLUMN `PlantKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`productionrun` ALTER COLUMN `ProductKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`productionrun` ALTER COLUMN `ProductionDateKey` SET NOT NULL",
+        "ALTER TABLE `velox_dev`.`mfg`.`productionrun` ALTER COLUMN `BatchCode` SET NOT NULL"
+      ]
+    },
+    {
+      "id": "primary-key:ProductionRun",
+      "title": "Declare the primary key of ProductionRun (ProductionRunKey)",
+      "statements": [
+        "ALTER TABLE `velox_dev`.`mfg`.`productionrun` ADD CONSTRAINT `ProductionRun_pk` PRIMARY KEY (`ProductionRunKey`)"
+      ]
+    },
+    {
+      "id": "readers",
+      "title": "Let velox-users read the migrated tables",
+      "statements": [
+        "GRANT USE SCHEMA, SELECT ON SCHEMA `velox_dev`.`mfg` TO `velox-users`"
+      ]
+    }
+  ],
+  "risks": [
+    {
+      "level": "medium",
+      "table": "MachineEvent",
+      "text": "OccurredAt (datetimeoffset) becomes a TIMESTAMP in UTC: the point in time is kept, its offset is not."
+    },
+    {
+      "level": "medium",
+      "table": "MaintenanceWorkOrder",
+      "text": "ReportedAt (datetimeoffset) becomes a TIMESTAMP in UTC: the point in time is kept, its offset is not."
+    },
+    {
+      "level": "medium",
+      "table": "PackagingProduct",
+      "text": "PackagingProduct has no primary key: duplicate rows cannot be detected."
+    },
+    {
+      "level": "medium",
+      "table": "ProductionRun",
+      "text": "StartedAt (datetimeoffset) becomes a TIMESTAMP in UTC: the point in time is kept, its offset is not."
+    },
+    {
+      "level": "medium",
+      "table": "MaintenanceWorkOrder",
+      "text": "ReportedAt is converted to UTC while StartedAt and CompletedAt are datetime2 without an offset, so comparing them may be skewed by the original time zone."
+    },
+    {
+      "level": "medium",
+      "table": "ProductionRun",
+      "text": "The links to machine, line, plant and product are plain integer columns that the copy does not enforce, so orphan rows can appear unnoticed later."
+    },
+    {
+      "level": "medium",
+      "table": "Machine",
+      "text": "In the source data already, \u201cWarranty does not end before the machine was installed\u201d does not hold: a finding about the data, not a test of the migration."
+    },
+    {
+      "level": "medium",
+      "table": "PackagingProduct",
+      "text": "In the source data already, \u201cA product is not discontinued before it was launched\u201d does not hold: a finding about the data, not a test of the migration."
+    },
+    {
+      "level": "low",
+      "table": "BillOfMaterial",
+      "text": "BillOfMaterial has no primary key in the source: the model chose (BomLineKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "BillOfMaterial",
+      "text": "BillOfMaterial's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "EnergyReading",
+      "text": "EnergyReading has no primary key in the source: the model chose (ReadingKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "EnergyReading",
+      "text": "EnergyReading's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "Machine",
+      "text": "Machine has no primary key in the source: the model chose (MachineKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "Machine",
+      "text": "Machine's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "MachineEvent",
+      "text": "ShiftStart (time) becomes a TIMESTAMP: Databricks has no time-of-day type, so each value gets a date."
+    },
+    {
+      "level": "low",
+      "table": "MachineEvent",
+      "text": "MachineEvent has no primary key in the source: the model chose (EventKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "MachineEvent",
+      "text": "MachineEvent's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "MaintenanceWorkOrder",
+      "text": "MaintenanceWorkOrder has no primary key in the source: the model chose (WorkOrderKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "MaintenanceWorkOrder",
+      "text": "MaintenanceWorkOrder's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "Material",
+      "text": "Material has no primary key in the source: the model chose (MaterialKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "Material",
+      "text": "Material's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "PackagingProduct",
+      "text": "PackagingProduct's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "Plant",
+      "text": "Plant has no primary key in the source: the model chose (PlantKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "Plant",
+      "text": "Plant's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "ProductionLine",
+      "text": "ProductionLine has no primary key in the source: the model chose (LineKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "ProductionLine",
+      "text": "ProductionLine's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "ProductionRun",
+      "text": "ShiftStart (time) becomes a TIMESTAMP: Databricks has no time-of-day type, so each value gets a date."
+    },
+    {
+      "level": "low",
+      "table": "ProductionRun",
+      "text": "ProductionRun has no primary key in the source: the model chose (ProductionRunKey), unique and never null in the source; the unique-key test checks the copy."
+    },
+    {
+      "level": "low",
+      "table": "ProductionRun",
+      "text": "ProductionRun's text columns compare without case in Synapse (SQL_Latin1_General_CP1_CI_AS) and with case in Databricks: a filter, join or key on them may match other rows after the migration."
+    },
+    {
+      "level": "low",
+      "table": "EnergyReading",
+      "text": "ReadAt, ReadingDateKey and ReadingHour describe the same moment in three columns and nothing in the copy keeps them consistent."
+    },
+    {
+      "level": "low",
+      "table": "ProductionRun",
+      "text": "Oee, Availability, Performance and QualityRate are floating-point values whose scale (fraction or percent) is not documented, so downstream reports may misread them."
+    },
+    {
+      "level": "low",
+      "table": "MaintenanceWorkOrder",
+      "text": "LabourCostEur and PartsCostEur are SQL Server money values, and their exact decimal precision in Databricks should be confirmed before finance reports use them."
+    }
+  ],
+  "tests": [
+    {
+      "id": "BillOfMaterial:columns",
+      "category": "schema",
+      "table": "BillOfMaterial",
+      "name": "BillOfMaterial has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'BomLineKey,IsAlternative,MaterialKey,ProductKey,QuantityPerThousand,Revision,ScrapAllowancePct,UnitOfMeasure,ValidFrom,ValidTo' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'billofmaterial')"
+    },
+    {
+      "id": "BillOfMaterial:not-null",
+      "category": "schema",
+      "table": "BillOfMaterial",
+      "name": "BillOfMaterial keeps NOT NULL on 3 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'BomLineKey,MaterialKey,ProductKey' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'billofmaterial' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "BillOfMaterial:row-count",
+      "category": "data_quality",
+      "table": "BillOfMaterial",
+      "name": "BillOfMaterial has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`billofmaterial`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`BillOfMaterial`) s"
+    },
+    {
+      "id": "BillOfMaterial:unique-key",
+      "category": "data_quality",
+      "table": "BillOfMaterial",
+      "name": "BillOfMaterial has no duplicate keys (BomLineKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`BomLineKey`)) AS duplicates FROM `velox_dev`.`mfg`.`billofmaterial`)"
+    },
+    {
+      "id": "BillOfMaterial:sum:QuantityPerThousand",
+      "category": "regression",
+      "table": "BillOfMaterial",
+      "name": "sum(QuantityPerThousand) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`QuantityPerThousand`) AS STRING) AS v FROM `velox_dev`.`mfg`.`billofmaterial`) t CROSS JOIN (SELECT CAST(sum(`QuantityPerThousand`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`BillOfMaterial`) s"
+    },
+    {
+      "id": "BillOfMaterial:range:ValidFrom",
+      "category": "regression",
+      "table": "BillOfMaterial",
+      "name": "ValidFrom covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`ValidFrom`) AS STRING), ' .. ', CAST(max(`ValidFrom`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`billofmaterial`) t CROSS JOIN (SELECT concat(CAST(min(`ValidFrom`) AS STRING), ' .. ', CAST(max(`ValidFrom`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`BillOfMaterial`) s"
+    },
+    {
+      "id": "BillOfMaterial:range:ValidTo",
+      "category": "regression",
+      "table": "BillOfMaterial",
+      "name": "ValidTo covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`ValidTo`) AS STRING), ' .. ', CAST(max(`ValidTo`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`billofmaterial`) t CROSS JOIN (SELECT concat(CAST(min(`ValidTo`) AS STRING), ' .. ', CAST(max(`ValidTo`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`BillOfMaterial`) s"
+    },
+    {
+      "id": "EnergyReading:columns",
+      "category": "schema",
+      "table": "EnergyReading",
+      "name": "EnergyReading has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'Co2Kg,CompressedAirM3,ElectricityKwh,GasM3,IsEstimated,LineKey,PeakKw,PlantKey,PowerFactor,ReadAt,ReadingDateKey,ReadingHour,ReadingKey,SteamKg,TariffBand' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'energyreading')"
+    },
+    {
+      "id": "EnergyReading:not-null",
+      "category": "schema",
+      "table": "EnergyReading",
+      "name": "EnergyReading keeps NOT NULL on 5 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'LineKey,PlantKey,ReadingDateKey,ReadingHour,ReadingKey' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'energyreading' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "EnergyReading:row-count",
+      "category": "data_quality",
+      "table": "EnergyReading",
+      "name": "EnergyReading has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`energyreading`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`EnergyReading`) s"
+    },
+    {
+      "id": "EnergyReading:unique-key",
+      "category": "data_quality",
+      "table": "EnergyReading",
+      "name": "EnergyReading has no duplicate keys (ReadingKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`ReadingKey`)) AS duplicates FROM `velox_dev`.`mfg`.`energyreading`)"
+    },
+    {
+      "id": "EnergyReading:sum:ElectricityKwh",
+      "category": "regression",
+      "table": "EnergyReading",
+      "name": "sum(ElectricityKwh) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`ElectricityKwh`) AS STRING) AS v FROM `velox_dev`.`mfg`.`energyreading`) t CROSS JOIN (SELECT CAST(sum(`ElectricityKwh`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`EnergyReading`) s"
+    },
+    {
+      "id": "EnergyReading:sum:GasM3",
+      "category": "regression",
+      "table": "EnergyReading",
+      "name": "sum(GasM3) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`GasM3`) AS STRING) AS v FROM `velox_dev`.`mfg`.`energyreading`) t CROSS JOIN (SELECT CAST(sum(`GasM3`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`EnergyReading`) s"
+    },
+    {
+      "id": "EnergyReading:sum:SteamKg",
+      "category": "regression",
+      "table": "EnergyReading",
+      "name": "sum(SteamKg) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`SteamKg`) AS STRING) AS v FROM `velox_dev`.`mfg`.`energyreading`) t CROSS JOIN (SELECT CAST(sum(`SteamKg`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`EnergyReading`) s"
+    },
+    {
+      "id": "EnergyReading:range:ReadAt",
+      "category": "regression",
+      "table": "EnergyReading",
+      "name": "ReadAt covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`ReadAt`) AS STRING), ' .. ', CAST(max(`ReadAt`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`energyreading`) t CROSS JOIN (SELECT concat(CAST(min(`ReadAt`) AS STRING), ' .. ', CAST(max(`ReadAt`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`EnergyReading`) s"
+    },
+    {
+      "id": "Machine:columns",
+      "category": "schema",
+      "table": "Machine",
+      "name": "Machine has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'ExternalId,FirmwareVersion,InstalledOn,IsCritical,LastServiceAt,LineKey,MachineKey,MachineType,Manufacturer,Model,NominalUnitsPerHour,PlantKey,PowerKw,SerialNumber,WarrantyUntil,WeightKg' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'machine')"
+    },
+    {
+      "id": "Machine:not-null",
+      "category": "schema",
+      "table": "Machine",
+      "name": "Machine keeps NOT NULL on 5 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'ExternalId,LineKey,MachineKey,PlantKey,SerialNumber' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'machine' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "Machine:row-count",
+      "category": "data_quality",
+      "table": "Machine",
+      "name": "Machine has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`machine`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`Machine`) s"
+    },
+    {
+      "id": "Machine:unique-key",
+      "category": "data_quality",
+      "table": "Machine",
+      "name": "Machine has no duplicate keys (MachineKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`MachineKey`)) AS duplicates FROM `velox_dev`.`mfg`.`machine`)"
+    },
+    {
+      "id": "Machine:sum:PowerKw",
+      "category": "regression",
+      "table": "Machine",
+      "name": "sum(PowerKw) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`PowerKw`) AS STRING) AS v FROM `velox_dev`.`mfg`.`machine`) t CROSS JOIN (SELECT CAST(sum(`PowerKw`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`Machine`) s"
+    },
+    {
+      "id": "Machine:sum:WeightKg",
+      "category": "regression",
+      "table": "Machine",
+      "name": "sum(WeightKg) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`WeightKg`) AS STRING) AS v FROM `velox_dev`.`mfg`.`machine`) t CROSS JOIN (SELECT CAST(sum(`WeightKg`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`Machine`) s"
+    },
+    {
+      "id": "Machine:range:InstalledOn",
+      "category": "regression",
+      "table": "Machine",
+      "name": "InstalledOn covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`InstalledOn`) AS STRING), ' .. ', CAST(max(`InstalledOn`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`machine`) t CROSS JOIN (SELECT concat(CAST(min(`InstalledOn`) AS STRING), ' .. ', CAST(max(`InstalledOn`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`Machine`) s"
+    },
+    {
+      "id": "Machine:range:WarrantyUntil",
+      "category": "regression",
+      "table": "Machine",
+      "name": "WarrantyUntil covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`WarrantyUntil`) AS STRING), ' .. ', CAST(max(`WarrantyUntil`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`machine`) t CROSS JOIN (SELECT concat(CAST(min(`WarrantyUntil`) AS STRING), ' .. ', CAST(max(`WarrantyUntil`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`Machine`) s"
+    },
+    {
+      "id": "MachineEvent:columns",
+      "category": "schema",
+      "table": "MachineEvent",
+      "name": "MachineEvent has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'AcknowledgedAt,AcknowledgedBy,AlarmCode,CounterValue,DurationSeconds,EventDateKey,EventKey,EventType,IsPlanned,MachineKey,Message,OccurredAt,RootCause,Severity,ShiftStart,SourceSystem,TempC,VibrationMmS' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'machineevent')"
+    },
+    {
+      "id": "MachineEvent:not-null",
+      "category": "schema",
+      "table": "MachineEvent",
+      "name": "MachineEvent keeps NOT NULL on 4 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'EventDateKey,EventKey,EventType,MachineKey' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'machineevent' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "MachineEvent:row-count",
+      "category": "data_quality",
+      "table": "MachineEvent",
+      "name": "MachineEvent has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`machineevent`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`MachineEvent`) s"
+    },
+    {
+      "id": "MachineEvent:unique-key",
+      "category": "data_quality",
+      "table": "MachineEvent",
+      "name": "MachineEvent has no duplicate keys (EventKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`EventKey`)) AS duplicates FROM `velox_dev`.`mfg`.`machineevent`)"
+    },
+    {
+      "id": "MachineEvent:sum:TempC",
+      "category": "regression",
+      "table": "MachineEvent",
+      "name": "sum(TempC) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`TempC`) AS STRING) AS v FROM `velox_dev`.`mfg`.`machineevent`) t CROSS JOIN (SELECT CAST(sum(`TempC`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`MachineEvent`) s"
+    },
+    {
+      "id": "MachineEvent:range:AcknowledgedAt",
+      "category": "regression",
+      "table": "MachineEvent",
+      "name": "AcknowledgedAt covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`AcknowledgedAt`) AS STRING), ' .. ', CAST(max(`AcknowledgedAt`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`machineevent`) t CROSS JOIN (SELECT concat(CAST(min(`AcknowledgedAt`) AS STRING), ' .. ', CAST(max(`AcknowledgedAt`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`MachineEvent`) s"
+    },
+    {
+      "id": "MaintenanceWorkOrder:columns",
+      "category": "schema",
+      "table": "MaintenanceWorkOrder",
+      "name": "MaintenanceWorkOrder has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'ActualHours,CompletedAt,Description,DowntimeMinutes,ExternalId,FailureMode,LabourCostEur,MachineKey,PartsCostEur,PlannedHours,Priority,ReportedAt,SafetyRelated,SparePartCode,StartedAt,Status,Technician,WorkOrderKey,WorkOrderNumber,WorkType' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'maintenanceworkorder')"
+    },
+    {
+      "id": "MaintenanceWorkOrder:not-null",
+      "category": "schema",
+      "table": "MaintenanceWorkOrder",
+      "name": "MaintenanceWorkOrder keeps NOT NULL on 3 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'MachineKey,WorkOrderKey,WorkOrderNumber' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'maintenanceworkorder' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "MaintenanceWorkOrder:row-count",
+      "category": "data_quality",
+      "table": "MaintenanceWorkOrder",
+      "name": "MaintenanceWorkOrder has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`maintenanceworkorder`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`MaintenanceWorkOrder`) s"
+    },
+    {
+      "id": "MaintenanceWorkOrder:unique-key",
+      "category": "data_quality",
+      "table": "MaintenanceWorkOrder",
+      "name": "MaintenanceWorkOrder has no duplicate keys (WorkOrderKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`WorkOrderKey`)) AS duplicates FROM `velox_dev`.`mfg`.`maintenanceworkorder`)"
+    },
+    {
+      "id": "MaintenanceWorkOrder:sum:PlannedHours",
+      "category": "regression",
+      "table": "MaintenanceWorkOrder",
+      "name": "sum(PlannedHours) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`PlannedHours`) AS STRING) AS v FROM `velox_dev`.`mfg`.`maintenanceworkorder`) t CROSS JOIN (SELECT CAST(sum(`PlannedHours`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`MaintenanceWorkOrder`) s"
+    },
+    {
+      "id": "MaintenanceWorkOrder:sum:ActualHours",
+      "category": "regression",
+      "table": "MaintenanceWorkOrder",
+      "name": "sum(ActualHours) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`ActualHours`) AS STRING) AS v FROM `velox_dev`.`mfg`.`maintenanceworkorder`) t CROSS JOIN (SELECT CAST(sum(`ActualHours`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`MaintenanceWorkOrder`) s"
+    },
+    {
+      "id": "MaintenanceWorkOrder:sum:LabourCostEur",
+      "category": "regression",
+      "table": "MaintenanceWorkOrder",
+      "name": "sum(LabourCostEur) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`LabourCostEur`) AS STRING) AS v FROM `velox_dev`.`mfg`.`maintenanceworkorder`) t CROSS JOIN (SELECT CAST(sum(`LabourCostEur`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`MaintenanceWorkOrder`) s"
+    },
+    {
+      "id": "MaintenanceWorkOrder:range:StartedAt",
+      "category": "regression",
+      "table": "MaintenanceWorkOrder",
+      "name": "StartedAt covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`StartedAt`) AS STRING), ' .. ', CAST(max(`StartedAt`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`maintenanceworkorder`) t CROSS JOIN (SELECT concat(CAST(min(`StartedAt`) AS STRING), ' .. ', CAST(max(`StartedAt`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`MaintenanceWorkOrder`) s"
+    },
+    {
+      "id": "MaintenanceWorkOrder:range:CompletedAt",
+      "category": "regression",
+      "table": "MaintenanceWorkOrder",
+      "name": "CompletedAt covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`CompletedAt`) AS STRING), ' .. ', CAST(max(`CompletedAt`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`maintenanceworkorder`) t CROSS JOIN (SELECT concat(CAST(min(`CompletedAt`) AS STRING), ' .. ', CAST(max(`CompletedAt`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`MaintenanceWorkOrder`) s"
+    },
+    {
+      "id": "Material:columns",
+      "category": "schema",
+      "table": "Material",
+      "name": "Material has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'ApprovedOn,Category,FoodContactApproved,GramsPerM2,HazardClass,MaterialCode,MaterialKey,MaterialName,RenewableContentPct,ShelfLifeDays,StandardCostEur,UnitOfMeasure' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'material')"
+    },
+    {
+      "id": "Material:not-null",
+      "category": "schema",
+      "table": "Material",
+      "name": "Material keeps NOT NULL on 2 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'MaterialCode,MaterialKey' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'material' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "Material:row-count",
+      "category": "data_quality",
+      "table": "Material",
+      "name": "Material has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`material`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`Material`) s"
+    },
+    {
+      "id": "Material:unique-key",
+      "category": "data_quality",
+      "table": "Material",
+      "name": "Material has no duplicate keys (MaterialKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`MaterialKey`)) AS duplicates FROM `velox_dev`.`mfg`.`material`)"
+    },
+    {
+      "id": "Material:sum:GramsPerM2",
+      "category": "regression",
+      "table": "Material",
+      "name": "sum(GramsPerM2) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`GramsPerM2`) AS STRING) AS v FROM `velox_dev`.`mfg`.`material`) t CROSS JOIN (SELECT CAST(sum(`GramsPerM2`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`Material`) s"
+    },
+    {
+      "id": "Material:sum:StandardCostEur",
+      "category": "regression",
+      "table": "Material",
+      "name": "sum(StandardCostEur) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`StandardCostEur`) AS STRING) AS v FROM `velox_dev`.`mfg`.`material`) t CROSS JOIN (SELECT CAST(sum(`StandardCostEur`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`Material`) s"
+    },
+    {
+      "id": "Material:range:ApprovedOn",
+      "category": "regression",
+      "table": "Material",
+      "name": "ApprovedOn covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`ApprovedOn`) AS STRING), ' .. ', CAST(max(`ApprovedOn`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`material`) t CROSS JOIN (SELECT concat(CAST(min(`ApprovedOn`) AS STRING), ' .. ', CAST(max(`ApprovedOn`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`Material`) s"
+    },
+    {
+      "id": "PackagingProduct:columns",
+      "category": "schema",
+      "table": "PackagingProduct",
+      "name": "PackagingProduct has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'BarrierLayers,DepthMm,Description,DiscontinuedOn,Gtin,HeightMm,IsRecyclable,LaunchedOn,ListPriceEur,Material,MinOrderQty,PackageType,PrintColours,ProductKey,ProductName,RecycledContentPct,Sku,VolumeMl,WeightG,WidthMm' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'packagingproduct')"
+    },
+    {
+      "id": "PackagingProduct:not-null",
+      "category": "schema",
+      "table": "PackagingProduct",
+      "name": "PackagingProduct keeps NOT NULL on 4 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'Gtin,ProductKey,ProductName,Sku' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'packagingproduct' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "PackagingProduct:row-count",
+      "category": "data_quality",
+      "table": "PackagingProduct",
+      "name": "PackagingProduct has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`packagingproduct`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`PackagingProduct`) s"
+    },
+    {
+      "id": "PackagingProduct:sum:WeightG",
+      "category": "regression",
+      "table": "PackagingProduct",
+      "name": "sum(WeightG) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`WeightG`) AS STRING) AS v FROM `velox_dev`.`mfg`.`packagingproduct`) t CROSS JOIN (SELECT CAST(sum(`WeightG`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`PackagingProduct`) s"
+    },
+    {
+      "id": "PackagingProduct:sum:HeightMm",
+      "category": "regression",
+      "table": "PackagingProduct",
+      "name": "sum(HeightMm) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`HeightMm`) AS STRING) AS v FROM `velox_dev`.`mfg`.`packagingproduct`) t CROSS JOIN (SELECT CAST(sum(`HeightMm`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`PackagingProduct`) s"
+    },
+    {
+      "id": "PackagingProduct:sum:WidthMm",
+      "category": "regression",
+      "table": "PackagingProduct",
+      "name": "sum(WidthMm) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`WidthMm`) AS STRING) AS v FROM `velox_dev`.`mfg`.`packagingproduct`) t CROSS JOIN (SELECT CAST(sum(`WidthMm`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`PackagingProduct`) s"
+    },
+    {
+      "id": "PackagingProduct:range:LaunchedOn",
+      "category": "regression",
+      "table": "PackagingProduct",
+      "name": "LaunchedOn covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`LaunchedOn`) AS STRING), ' .. ', CAST(max(`LaunchedOn`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`packagingproduct`) t CROSS JOIN (SELECT concat(CAST(min(`LaunchedOn`) AS STRING), ' .. ', CAST(max(`LaunchedOn`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`PackagingProduct`) s"
+    },
+    {
+      "id": "PackagingProduct:range:DiscontinuedOn",
+      "category": "regression",
+      "table": "PackagingProduct",
+      "name": "DiscontinuedOn covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`DiscontinuedOn`) AS STRING), ' .. ', CAST(max(`DiscontinuedOn`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`packagingproduct`) t CROSS JOIN (SELECT concat(CAST(min(`DiscontinuedOn`) AS STRING), ' .. ', CAST(max(`DiscontinuedOn`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`PackagingProduct`) s"
+    },
+    {
+      "id": "Plant:columns",
+      "category": "schema",
+      "table": "Plant",
+      "name": "Plant has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'AnnualCapacityMillionPacks,City,Country,Employees,FloorAreaM2,IsoCertified,Latitude,Longitude,OpenedOn,PlantCode,PlantKey,PlantName,Region,TimeZone' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'plant')"
+    },
+    {
+      "id": "Plant:not-null",
+      "category": "schema",
+      "table": "Plant",
+      "name": "Plant keeps NOT NULL on 3 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'PlantCode,PlantKey,PlantName' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'plant' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "Plant:row-count",
+      "category": "data_quality",
+      "table": "Plant",
+      "name": "Plant has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`plant`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`Plant`) s"
+    },
+    {
+      "id": "Plant:unique-key",
+      "category": "data_quality",
+      "table": "Plant",
+      "name": "Plant has no duplicate keys (PlantKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`PlantKey`)) AS duplicates FROM `velox_dev`.`mfg`.`plant`)"
+    },
+    {
+      "id": "Plant:sum:AnnualCapacityMillionPacks",
+      "category": "regression",
+      "table": "Plant",
+      "name": "sum(AnnualCapacityMillionPacks) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`AnnualCapacityMillionPacks`) AS STRING) AS v FROM `velox_dev`.`mfg`.`plant`) t CROSS JOIN (SELECT CAST(sum(`AnnualCapacityMillionPacks`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`Plant`) s"
+    },
+    {
+      "id": "Plant:sum:Latitude",
+      "category": "regression",
+      "table": "Plant",
+      "name": "sum(Latitude) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`Latitude`) AS STRING) AS v FROM `velox_dev`.`mfg`.`plant`) t CROSS JOIN (SELECT CAST(sum(`Latitude`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`Plant`) s"
+    },
+    {
+      "id": "Plant:sum:Longitude",
+      "category": "regression",
+      "table": "Plant",
+      "name": "sum(Longitude) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`Longitude`) AS STRING) AS v FROM `velox_dev`.`mfg`.`plant`) t CROSS JOIN (SELECT CAST(sum(`Longitude`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`Plant`) s"
+    },
+    {
+      "id": "Plant:range:OpenedOn",
+      "category": "regression",
+      "table": "Plant",
+      "name": "OpenedOn covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`OpenedOn`) AS STRING), ' .. ', CAST(max(`OpenedOn`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`plant`) t CROSS JOIN (SELECT concat(CAST(min(`OpenedOn`) AS STRING), ' .. ', CAST(max(`OpenedOn`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`Plant`) s"
+    },
+    {
+      "id": "ProductionLine:columns",
+      "category": "schema",
+      "table": "ProductionLine",
+      "name": "ProductionLine has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'CommissionedOn,IsActive,LastAuditOn,LineCode,LineKey,LineType,NominalPacksPerHour,Notes,PlantKey,Shifts,Supervisor,TargetOee' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'productionline')"
+    },
+    {
+      "id": "ProductionLine:not-null",
+      "category": "schema",
+      "table": "ProductionLine",
+      "name": "ProductionLine keeps NOT NULL on 3 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'LineCode,LineKey,PlantKey' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'productionline' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "ProductionLine:row-count",
+      "category": "data_quality",
+      "table": "ProductionLine",
+      "name": "ProductionLine has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`productionline`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`ProductionLine`) s"
+    },
+    {
+      "id": "ProductionLine:unique-key",
+      "category": "data_quality",
+      "table": "ProductionLine",
+      "name": "ProductionLine has no duplicate keys (LineKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`LineKey`)) AS duplicates FROM `velox_dev`.`mfg`.`productionline`)"
+    },
+    {
+      "id": "ProductionLine:range:CommissionedOn",
+      "category": "regression",
+      "table": "ProductionLine",
+      "name": "CommissionedOn covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`CommissionedOn`) AS STRING), ' .. ', CAST(max(`CommissionedOn`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`productionline`) t CROSS JOIN (SELECT concat(CAST(min(`CommissionedOn`) AS STRING), ' .. ', CAST(max(`CommissionedOn`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`ProductionLine`) s"
+    },
+    {
+      "id": "ProductionLine:range:LastAuditOn",
+      "category": "regression",
+      "table": "ProductionLine",
+      "name": "LastAuditOn covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`LastAuditOn`) AS STRING), ' .. ', CAST(max(`LastAuditOn`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`productionline`) t CROSS JOIN (SELECT concat(CAST(min(`LastAuditOn`) AS STRING), ' .. ', CAST(max(`LastAuditOn`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`ProductionLine`) s"
+    },
+    {
+      "id": "ProductionRun:columns",
+      "category": "schema",
+      "table": "ProductionRun",
+      "name": "ProductionRun has the planned columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'Availability,BatchCode,ChangeoverMinutes,DowntimeMinutes,DurationMinutes,EnergyKwh,GlueGrams,InkGrams,IsTrial,LineKey,MachineKey,Oee,OperatorCount,OperatorId,Performance,PlantKey,ProductKey,ProductionDateKey,ProductionRunKey,QaComment,QualityRate,ReleasedAt,ScrapKg,SealPressureBar,ShiftStart,StartedAt,SterilantPpm,Stoppages,UnitsPlanned,UnitsProduced,UnitsRejected,WaterLitres,WebSpeedMpm,Zone1TempC,Zone2TempC,Zone3TempC' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'productionrun')"
+    },
+    {
+      "id": "ProductionRun:not-null",
+      "category": "schema",
+      "table": "ProductionRun",
+      "name": "ProductionRun keeps NOT NULL on 7 columns",
+      "sql": "SELECT actual = expected AS passed, actual, expected FROM (SELECT concat_ws(',', sort_array(collect_list(column_name))) AS actual, 'BatchCode,LineKey,MachineKey,PlantKey,ProductKey,ProductionDateKey,ProductionRunKey' AS expected FROM `velox_dev`.`information_schema`.`columns` WHERE table_schema = 'mfg' AND table_name = 'productionrun' AND is_nullable = 'NO')"
+    },
+    {
+      "id": "ProductionRun:row-count",
+      "category": "data_quality",
+      "table": "ProductionRun",
+      "name": "ProductionRun has as many rows as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT count(*) AS v FROM `velox_dev`.`mfg`.`productionrun`) t CROSS JOIN (SELECT count(*) AS v FROM `packdwh_src`.`mfg`.`ProductionRun`) s"
+    },
+    {
+      "id": "ProductionRun:unique-key",
+      "category": "data_quality",
+      "table": "ProductionRun",
+      "name": "ProductionRun has no duplicate keys (ProductionRunKey) (model decision)",
+      "sql": "SELECT duplicates = 0 AS passed, CAST(duplicates AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) - count(DISTINCT struct(`ProductionRunKey`)) AS duplicates FROM `velox_dev`.`mfg`.`productionrun`)"
+    },
+    {
+      "id": "ProductionRun:sum:ScrapKg",
+      "category": "regression",
+      "table": "ProductionRun",
+      "name": "sum(ScrapKg) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`ScrapKg`) AS STRING) AS v FROM `velox_dev`.`mfg`.`productionrun`) t CROSS JOIN (SELECT CAST(sum(`ScrapKg`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`ProductionRun`) s"
+    },
+    {
+      "id": "ProductionRun:sum:EnergyKwh",
+      "category": "regression",
+      "table": "ProductionRun",
+      "name": "sum(EnergyKwh) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`EnergyKwh`) AS STRING) AS v FROM `velox_dev`.`mfg`.`productionrun`) t CROSS JOIN (SELECT CAST(sum(`EnergyKwh`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`ProductionRun`) s"
+    },
+    {
+      "id": "ProductionRun:sum:WaterLitres",
+      "category": "regression",
+      "table": "ProductionRun",
+      "name": "sum(WaterLitres) matches the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT CAST(sum(`WaterLitres`) AS STRING) AS v FROM `velox_dev`.`mfg`.`productionrun`) t CROSS JOIN (SELECT CAST(sum(`WaterLitres`) AS STRING) AS v FROM `packdwh_src`.`mfg`.`ProductionRun`) s"
+    },
+    {
+      "id": "ProductionRun:range:ReleasedAt",
+      "category": "regression",
+      "table": "ProductionRun",
+      "name": "ReleasedAt covers the same range as the source",
+      "sql": "SELECT t.v <=> s.v AS passed, CAST(t.v AS STRING) AS actual, CAST(s.v AS STRING) AS expected FROM (SELECT concat(CAST(min(`ReleasedAt`) AS STRING), ' .. ', CAST(max(`ReleasedAt`) AS STRING)) AS v FROM `velox_dev`.`mfg`.`productionrun`) t CROSS JOIN (SELECT concat(CAST(min(`ReleasedAt`) AS STRING), ' .. ', CAST(max(`ReleasedAt`) AS STRING)) AS v FROM `packdwh_src`.`mfg`.`ProductionRun`) s"
+    },
+    {
+      "id": "BillOfMaterial:rule:1",
+      "category": "business_rules",
+      "table": "BillOfMaterial",
+      "name": "ValidTo is never before ValidFrom",
+      "sql": "SELECT bad = 0 AS passed, CAST(bad AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) AS bad FROM `velox_dev`.`mfg`.`billofmaterial` WHERE ValidFrom IS NOT NULL AND ValidTo IS NOT NULL AND ValidTo < ValidFrom)"
+    },
+    {
+      "id": "MaintenanceWorkOrder:rule:1",
+      "category": "business_rules",
+      "table": "MaintenanceWorkOrder",
+      "name": "A work order is not completed before it started",
+      "sql": "SELECT bad = 0 AS passed, CAST(bad AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) AS bad FROM `velox_dev`.`mfg`.`maintenanceworkorder` WHERE StartedAt IS NOT NULL AND CompletedAt IS NOT NULL AND CompletedAt < StartedAt)"
+    },
+    {
+      "id": "ProductionRun:rule:1",
+      "category": "business_rules",
+      "table": "ProductionRun",
+      "name": "Rejected units never exceed produced units",
+      "sql": "SELECT bad = 0 AS passed, CAST(bad AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) AS bad FROM `velox_dev`.`mfg`.`productionrun` WHERE UnitsRejected IS NOT NULL AND UnitsProduced IS NOT NULL AND UnitsRejected > UnitsProduced)"
+    },
+    {
+      "id": "EnergyReading:rule:1",
+      "category": "business_rules",
+      "table": "EnergyReading",
+      "name": "ReadingHour is a valid hour of the day (0 to 23)",
+      "sql": "SELECT bad = 0 AS passed, CAST(bad AS STRING) AS actual, '0' AS expected FROM (SELECT count(*) AS bad FROM `velox_dev`.`mfg`.`energyreading` WHERE ReadingHour < 0 OR ReadingHour > 23)"
+    }
+  ],
+  "planner": "rules + databricks-claude-sonnet-5-5",
+  "notes": [
+    "Business rules and domain risks were suggested by databricks-claude-sonnet-5-5 from the tables' metadata (no rows); check them before approving: Check the SQL plans each one with EXPLAIN.",
+    "9 decisions by databricks-claude-sonnet-5-5 shape this plan (a key, a clustering, a type or a cleaning transform), each tried on the source first, marked \u201cmodel decision\u201d, and checked by a test Velox writes: undo one by its id (reject_decisions).",
+    "Not applied: databricks-claude-sonnet-5-5's key decision on PackagingProduct: (ProductKey) repeats in 1 rows of the source."
+  ],
+  "summary": "This plan copies the 10 manufacturing tables from packdwh_src.mfg into velox_dev.mfg as Delta tables with the same names in lower case, and lets velox-users read them. The rule-based tests check row counts, columns, NOT NULL, sums and date ranges against the source. The added tests check business rules: dates and quantities in the right order, hours within a day, and machines, lines, plants, materials and products that exist in their parent tables. Before approving, look at the timestamp risks: some columns lose their time zone offset, and some are compared with columns that never had one.",
+  "decisions": [
+    {
+      "table": "BillOfMaterial",
+      "kind": "key",
+      "why": "BomLineKey identifies each bill of material line.",
+      "id": "BillOfMaterial:key",
+      "columns": [
+        "BomLineKey"
+      ],
+      "measured": "unique and never null over the source's 2,000 rows",
+      "status": "applied"
+    },
+    {
+      "table": "EnergyReading",
+      "kind": "key",
+      "why": "ReadingKey identifies each energy reading.",
+      "id": "EnergyReading:key",
+      "columns": [
+        "ReadingKey"
+      ],
+      "measured": "unique and never null over the source's 10,000 rows",
+      "status": "applied"
+    },
+    {
+      "table": "Machine",
+      "kind": "key",
+      "why": "MachineKey identifies each machine.",
+      "id": "Machine:key",
+      "columns": [
+        "MachineKey"
+      ],
+      "measured": "unique and never null over the source's 300 rows",
+      "status": "applied"
+    },
+    {
+      "table": "MachineEvent",
+      "kind": "key",
+      "why": "EventKey identifies each machine event.",
+      "id": "MachineEvent:key",
+      "columns": [
+        "EventKey"
+      ],
+      "measured": "unique and never null over the source's 10,000 rows",
+      "status": "applied"
+    },
+    {
+      "table": "MaintenanceWorkOrder",
+      "kind": "key",
+      "why": "WorkOrderKey identifies each work order.",
+      "id": "MaintenanceWorkOrder:key",
+      "columns": [
+        "WorkOrderKey"
+      ],
+      "measured": "unique and never null over the source's 10,000 rows",
+      "status": "applied"
+    },
+    {
+      "table": "Material",
+      "kind": "key",
+      "why": "MaterialKey identifies each material.",
+      "id": "Material:key",
+      "columns": [
+        "MaterialKey"
+      ],
+      "measured": "unique and never null over the source's 60 rows",
+      "status": "applied"
+    },
+    {
+      "table": "Plant",
+      "kind": "key",
+      "why": "PlantKey identifies each plant.",
+      "id": "Plant:key",
+      "columns": [
+        "PlantKey"
+      ],
+      "measured": "unique and never null over the source's 12 rows",
+      "status": "applied"
+    },
+    {
+      "table": "ProductionLine",
+      "kind": "key",
+      "why": "LineKey identifies each production line.",
+      "id": "ProductionLine:key",
+      "columns": [
+        "LineKey"
+      ],
+      "measured": "unique and never null over the source's 96 rows",
+      "status": "applied"
+    },
+    {
+      "table": "ProductionRun",
+      "kind": "key",
+      "why": "ProductionRunKey identifies each production run.",
+      "id": "ProductionRun:key",
+      "columns": [
+        "ProductionRunKey"
+      ],
+      "measured": "unique and never null over the source's 10,000 rows",
+      "status": "applied"
+    },
+    {
+      "table": "PackagingProduct",
+      "kind": "key",
+      "why": "ProductKey identifies each product.",
+      "id": "PackagingProduct:key",
+      "columns": [
+        "ProductKey"
+      ],
+      "dropped": "(ProductKey) repeats in 1 rows of the source",
+      "status": "dropped"
+    }
+  ],
+  "version": 1,
+  "revises": null,
+  "changes": [],
+  "note": "",
+  "source_tables": [
+    {
+      "name": "packdwh_src.mfg.BillOfMaterial",
+      "short_name": "BillOfMaterial",
+      "target": "velox_dev.mfg.billofmaterial",
+      "rows": 2000,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "BomLineKey",
+        "ProductKey",
+        "MaterialKey",
+        "QuantityPerThousand",
+        "UnitOfMeasure",
+        "ScrapAllowancePct",
+        "ValidFrom",
+        "ValidTo",
+        "Revision",
+        "IsAlternative"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.EnergyReading",
+      "short_name": "EnergyReading",
+      "target": "velox_dev.mfg.energyreading",
+      "rows": 10000,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "ReadingKey",
+        "PlantKey",
+        "LineKey",
+        "ReadingDateKey",
+        "ReadingHour",
+        "ReadAt",
+        "ElectricityKwh",
+        "GasM3",
+        "SteamKg",
+        "CompressedAirM3",
+        "PeakKw",
+        "PowerFactor",
+        "Co2Kg",
+        "TariffBand",
+        "IsEstimated"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.Machine",
+      "short_name": "Machine",
+      "target": "velox_dev.mfg.machine",
+      "rows": 300,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "MachineKey",
+        "LineKey",
+        "PlantKey",
+        "MachineType",
+        "Model",
+        "SerialNumber",
+        "Manufacturer",
+        "InstalledOn",
+        "WarrantyUntil",
+        "NominalUnitsPerHour",
+        "PowerKw",
+        "WeightKg",
+        "FirmwareVersion",
+        "ExternalId",
+        "IsCritical",
+        "LastServiceAt"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.MachineEvent",
+      "short_name": "MachineEvent",
+      "target": "velox_dev.mfg.machineevent",
+      "rows": 10000,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "EventKey",
+        "MachineKey",
+        "EventDateKey",
+        "OccurredAt",
+        "EventType",
+        "Severity",
+        "AlarmCode",
+        "DurationSeconds",
+        "AcknowledgedBy",
+        "AcknowledgedAt",
+        "RootCause",
+        "Message",
+        "CounterValue",
+        "TempC",
+        "VibrationMmS",
+        "IsPlanned",
+        "ShiftStart",
+        "SourceSystem"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.MaintenanceWorkOrder",
+      "short_name": "MaintenanceWorkOrder",
+      "target": "velox_dev.mfg.maintenanceworkorder",
+      "rows": 10000,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "WorkOrderKey",
+        "WorkOrderNumber",
+        "MachineKey",
+        "WorkType",
+        "Priority",
+        "Status",
+        "ReportedAt",
+        "StartedAt",
+        "CompletedAt",
+        "PlannedHours",
+        "ActualHours",
+        "LabourCostEur",
+        "PartsCostEur",
+        "Technician",
+        "FailureMode",
+        "SparePartCode",
+        "DowntimeMinutes",
+        "SafetyRelated",
+        "Description",
+        "ExternalId"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.Material",
+      "short_name": "Material",
+      "target": "velox_dev.mfg.material",
+      "rows": 60,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "MaterialKey",
+        "MaterialCode",
+        "MaterialName",
+        "Category",
+        "UnitOfMeasure",
+        "GramsPerM2",
+        "RenewableContentPct",
+        "StandardCostEur",
+        "FoodContactApproved",
+        "ApprovedOn",
+        "ShelfLifeDays",
+        "HazardClass"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.PackagingProduct",
+      "short_name": "PackagingProduct",
+      "target": "velox_dev.mfg.packagingproduct",
+      "rows": 401,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "ProductKey",
+        "Sku",
+        "ProductName",
+        "Material",
+        "PackageType",
+        "VolumeMl",
+        "WeightG",
+        "HeightMm",
+        "WidthMm",
+        "DepthMm",
+        "RecycledContentPct",
+        "BarrierLayers",
+        "PrintColours",
+        "ListPriceEur",
+        "MinOrderQty",
+        "LaunchedOn",
+        "DiscontinuedOn",
+        "IsRecyclable",
+        "Description",
+        "Gtin"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.Plant",
+      "short_name": "Plant",
+      "target": "velox_dev.mfg.plant",
+      "rows": 12,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "PlantKey",
+        "PlantCode",
+        "PlantName",
+        "Country",
+        "Region",
+        "City",
+        "OpenedOn",
+        "FloorAreaM2",
+        "Employees",
+        "AnnualCapacityMillionPacks",
+        "IsoCertified",
+        "TimeZone",
+        "Latitude",
+        "Longitude"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.ProductionLine",
+      "short_name": "ProductionLine",
+      "target": "velox_dev.mfg.productionline",
+      "rows": 96,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "LineKey",
+        "PlantKey",
+        "LineCode",
+        "LineType",
+        "Shifts",
+        "CommissionedOn",
+        "NominalPacksPerHour",
+        "TargetOee",
+        "Supervisor",
+        "IsActive",
+        "LastAuditOn",
+        "Notes"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    },
+    {
+      "name": "packdwh_src.mfg.ProductionRun",
+      "short_name": "ProductionRun",
+      "target": "velox_dev.mfg.productionrun",
+      "rows": 10000,
+      "primary_key": [],
+      "partitions": 0,
+      "partition_of": null,
+      "columns": [
+        "ProductionRunKey",
+        "MachineKey",
+        "LineKey",
+        "PlantKey",
+        "ProductKey",
+        "ProductionDateKey",
+        "ShiftStart",
+        "StartedAt",
+        "DurationMinutes",
+        "BatchCode",
+        "UnitsPlanned",
+        "UnitsProduced",
+        "UnitsRejected",
+        "ScrapKg",
+        "EnergyKwh",
+        "WaterLitres",
+        "Oee",
+        "Availability",
+        "Performance",
+        "QualityRate",
+        "SterilantPpm",
+        "Zone1TempC",
+        "Zone2TempC",
+        "Zone3TempC",
+        "SealPressureBar",
+        "WebSpeedMpm",
+        "GlueGrams",
+        "InkGrams",
+        "Stoppages",
+        "DowntimeMinutes",
+        "ChangeoverMinutes",
+        "OperatorCount",
+        "OperatorId",
+        "IsTrial",
+        "ReleasedAt",
+        "QaComment"
+      ],
+      "excluded_columns": [],
+      "cluster_by": null
+    }
+  ],
+  "llm_budget": {
+    "spent": 17889,
+    "limit": 200000
+  },
+  "runs": [],
+  "environment": "dev",
+  "gates": [
+    {
+      "env": "dev",
+      "status": "not_run",
+      "why": "The plan has not run on dev yet (execute_step)."
+    }
+  ],
+  "sign_offs": []
+}

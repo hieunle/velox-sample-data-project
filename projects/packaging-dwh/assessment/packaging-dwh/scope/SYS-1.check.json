@@ -1,0 +1,163 @@
+{
+  "checks": [
+    {
+      "version": 1,
+      "hash": "sha256:d65eec0ca25912605909884b74ddb41c55bd2435c99c7e94a5b963a72dad41eb",
+      "host": "PACKDWH01\\veloxpool",
+      "checkedAt": "2026-10-27T11:29:40.516Z",
+      "by": "hieunle@kms-technology.com",
+      "tables": [
+        {
+          "key": "obj-001",
+          "name": "mfg.BillOfMaterial",
+          "state": "found"
+        },
+        {
+          "key": "obj-002",
+          "name": "mfg.EnergyReading",
+          "state": "found"
+        },
+        {
+          "key": "obj-003",
+          "name": "mfg.Machine",
+          "state": "found"
+        },
+        {
+          "key": "obj-004",
+          "name": "mfg.MachineEvent",
+          "state": "found"
+        },
+        {
+          "key": "obj-005",
+          "name": "mfg.MaintenanceWorkOrder",
+          "state": "found"
+        },
+        {
+          "key": "obj-006",
+          "name": "mfg.Material",
+          "state": "found"
+        },
+        {
+          "key": "obj-007",
+          "name": "mfg.PackagingProduct",
+          "state": "found"
+        },
+        {
+          "key": "obj-008",
+          "name": "mfg.Plant",
+          "state": "found"
+        },
+        {
+          "key": "obj-009",
+          "name": "mfg.ProductionLine",
+          "state": "found"
+        },
+        {
+          "key": "obj-010",
+          "name": "mfg.ProductionRun",
+          "state": "found"
+        },
+        {
+          "key": "obj-011",
+          "name": "quality.Complaint",
+          "state": "found"
+        },
+        {
+          "key": "obj-012",
+          "name": "quality.Inspection",
+          "state": "found"
+        },
+        {
+          "key": "obj-013",
+          "name": "quality.LabTestResult",
+          "state": "found"
+        },
+        {
+          "key": "obj-014",
+          "name": "sales.Customer",
+          "state": "found"
+        },
+        {
+          "key": "obj-015",
+          "name": "sales.CustomerSite",
+          "state": "found"
+        },
+        {
+          "key": "obj-016",
+          "name": "sales.Invoice",
+          "state": "found"
+        },
+        {
+          "key": "obj-017",
+          "name": "sales.OrderLine",
+          "state": "found"
+        },
+        {
+          "key": "obj-018",
+          "name": "sales.PriceList",
+          "state": "found"
+        },
+        {
+          "key": "obj-019",
+          "name": "sales.SalesOrder",
+          "state": "found"
+        },
+        {
+          "key": "obj-020",
+          "name": "supply.InventorySnapshot",
+          "state": "found"
+        },
+        {
+          "key": "obj-021",
+          "name": "supply.PurchaseOrder",
+          "state": "found"
+        },
+        {
+          "key": "obj-022",
+          "name": "supply.Shipment",
+          "state": "found"
+        },
+        {
+          "key": "obj-023",
+          "name": "supply.Supplier",
+          "state": "found"
+        },
+        {
+          "key": "obj-024",
+          "name": "supply.Warehouse",
+          "state": "found"
+        },
+        {
+          "key": "obj-025",
+          "name": "wms.stock_extract",
+          "state": "missing"
+        },
+        {
+          "key": "obj-031",
+          "name": "sales.seq_Invoice",
+          "state": "missing"
+        },
+        {
+          "key": "obj-032",
+          "name": "supply.seq_Snapshot",
+          "state": "missing"
+        },
+        {
+          "key": "obj-044",
+          "name": "mfg.vw_DailyOee",
+          "state": "missing"
+        },
+        {
+          "key": "obj-045",
+          "name": "sales.vw_OpenReceivables",
+          "state": "missing"
+        }
+      ],
+      "keysChecked": false,
+      "notes": [
+        "Keys not checked: MCP error -32001: Request timed out",
+        "velox_dev could not be read: objects already in the target are not checked."
+      ]
+    }
+  ]
+}
