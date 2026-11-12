@@ -1,0 +1,10 @@
+jobname,command,start_time,duration_s,status,return_message
+dwh_nightly,python jobs/dwh_nightly.py (land SAP files),2026-09-29 01:00,612,succeeded,
+dwh_nightly,CALL mfg.sp_load_productionrun(),2026-09-29 01:30,1480,succeeded,CALL
+dwh_nightly,LIMS hourly catch-up,2026-09-29 01:55,95,succeeded,
+dwh_nightly,CALL sales.sp_build_invoice(20260928),2026-09-29 02:00,740,succeeded,CALL
+dwh_inventory,CALL supply.sp_snapshot_inventory(20260928),2026-09-28 23:55,2390,succeeded,CALL
+dwh_inventory,CALL supply.sp_snapshot_inventory(20260831),2026-08-31 23:55,4110,failed,ERROR: canceling statement due to statement timeout (DWH-401)
+pbi_refresh,Plant performance,2026-09-29 06:00,310,succeeded,
+pbi_refresh,Sales cockpit,2026-09-29 06:30,520,succeeded,
+metabase,Open receivables,2026-09-29 07:00,41,succeeded,
